@@ -3,6 +3,7 @@ import { styles } from "../../assets/theme/General";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-toast-message';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -39,25 +40,50 @@ const Login = ({ navigation }) => {
 
     const login = (email, password) => {
         if (email === '' || password === '') {
-            alert('invalid credentials');
+            Toast.show({
+                type: 'error',
+                text1: 'Invalid Credentials',
+                text2: 'Fields cannot be empty',
+                position: 'top',
+            });
         }
         else {
             auth()
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    alert('success');
+                    Toast.show({
+                        type: 'success',
+                        text1: 'Welcom Back!',
+                        text2: 'We\'ve missed you ✌',
+                        position: 'top',
+                    });
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
-                        alert('email already in use');
+                        Toast.show({
+                            type: 'error',
+                            text1: 'Email',
+                            text2: 'Email already in use',
+                            position: 'top',
+                        });
                     }
 
                     if (error.code === 'auth/invalid-email') {
-                        alert('invalid email');
+                        Toast.show({
+                            type: 'error',
+                            text1: 'Invalid Email',
+                            text2: 'The email you entered is not valid',
+                            position: 'top',
+                        });
                     }
 
                     else {
-                        alert('incorrect email or password');
+                        Toast.show({
+                            type: 'error',
+                            text1: 'Invalid Credentials',
+                            text2: 'Incorrect email or password',
+                            position: 'top',
+                        });
 
                     }
                 });

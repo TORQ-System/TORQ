@@ -6,9 +6,58 @@ import Signup from './src/screens/Signup';
 import Login from './src/screens/Login';
 import Loader from './src/screens/Loader';
 import Home from './src/screens/Home';
+import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 
 
 const Stack = createNativeStackNavigator();
+
+const toastConfig = {
+    error: (props) => (
+        <ErrorToast
+            {...props}
+            text1Style={{
+                fontSize: 17,
+                color: '#F3F3F3'
+            }}
+            text2Style={{
+                fontSize: 15,
+                color: '#F3F3F3'
+            }}
+            contentContainerStyle={{
+                backgroundColor: '#333'
+            }}
+            leadingIconContainerStyle={{
+                backgroundColor: '#333'
+            }}
+            trailingIconContainerStyle={{
+                backgroundColor: '#333'
+            }}
+        />
+    ),
+    success: (props) => (
+        <SuccessToast
+            {...props}
+            text1Style={{
+                fontSize: 17,
+                color: '#F3F3F3'
+            }}
+            text2Style={{
+                fontSize: 15,
+                color: '#F3F3F3'
+            }}
+            contentContainerStyle={{
+                backgroundColor: '#333'
+            }}
+            leadingIconContainerStyle={{
+                backgroundColor: '#333'
+            }}
+            trailingIconContainerStyle={{
+                backgroundColor: '#333'
+            }}
+        />
+    ),
+}
+
 
 const App = () => {
     const [initializing, setInitializing] = useState(true);
@@ -30,18 +79,12 @@ const App = () => {
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{
-                    headerStyle: {
-                        backgroundColor: '#101010',
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center'
+                    headerShown: false,
                 }}>
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Sign up" component={Signup} />
                 </Stack.Navigator>
+                <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
             </NavigationContainer>
         );
     }
@@ -49,18 +92,13 @@ const App = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{
-                headerStyle: {
-                    backgroundColor: '#101010',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center'
+                headerShown: false,
             }}>
                 <Stack.Screen name="Home" component={Home} />
             </Stack.Navigator>
+            <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
+
     );
 };
 
