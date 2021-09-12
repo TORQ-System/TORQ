@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134188033648",
+    "project_id": "torq-f5f5f",
+    "storage_bucket": "torq-f5f5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134188033648:android:68f56024cf78fe586cb6b5",
+        "android_client_info": {
+          "package_name": "com.torq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134188033648-dlptgo856m9rb1hd90iqjnbsqqpvidca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMBsTZe8URnPWhF_e-JQruEJsM5pi5wc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134188033648-dlptgo856m9rb1hd90iqjnbsqqpvidca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
