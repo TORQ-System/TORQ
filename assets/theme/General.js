@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
     },
     buttonPrimary: {
+        marginTop: 20,
         width: '80%',
         height: 40,
     },
@@ -42,7 +43,15 @@ export const styles = StyleSheet.create({
         color: '#4DBDC2',
         marginTop: 20,
         alignSelf: 'flex-start',
-        marginLeft: 35,
-    }
+        marginLeft: 40,
+    },
+    errorText: {
+        color: 'red',
+        alignSelf: 'flex-start',
+        margin: 0,
+        padding: 0,
+        marginLeft: 40,
+        fontSize: 12,
+    },
 }
 );

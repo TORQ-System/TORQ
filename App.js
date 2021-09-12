@@ -39,8 +39,8 @@ const App = () => {
                     },
                     headerTitleAlign: 'center'
                 }}>
-                    <Stack.Screen name="Sign up" component={Signup} />
                     <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Sign up" component={Signup} />
                 </Stack.Navigator>
             </NavigationContainer>
         );
