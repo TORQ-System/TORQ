@@ -6,6 +6,7 @@ import Login from './src/screens/Login';
 import ViewRequest from './src/screens/ViewRequest';
 
 
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -13,18 +14,11 @@ const App = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{
-                headerStyle: {
-                    backgroundColor: '#101010',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center'
+                  headerShown: false
             }}>
                 <Stack.Screen name="Sign up" component={Signup} />
                 <Stack.Screen name="Login" component={Login} />
-              //  <Stack.Screen name="ViewRequest" component={ViewRequest} />
+              <Stack.Screen name="ViewRequest" component={ViewRequest} />
 
             </Stack.Navigator>
         </NavigationContainer>
