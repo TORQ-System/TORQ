@@ -1,10 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    textDark: {
-        fontSize: 18,
-        color: '#FFF',
-    },
     textLight: {
         fontSize: 18,
         color: '#FFF',

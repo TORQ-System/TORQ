@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
-import { View, Text, TextInput, ImageBackground } from "react-native";
+import { View, Text, TextInput, ImageBackground, ScrollView } from "react-native";
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import Title from '../components/Title';
@@ -84,42 +84,44 @@ const Login = ({ navigation }) => {
     }
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/background.png')}
-            style={styles.imageBackground}>
-            <Title titleName='Welcome Back' />
+        <ScrollView>
             <ImageBackground
-                source={require('../../assets/images/cardLight.png')}
-                style={formStyles.cardImage}>
-                <View style={formStyles.card}>
-                    <TextInput
-                        onBlur={() => validateEmail()}
-                        placeholder='Email..'
-                        onChangeText={setEmail}
-                        value={email}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {emailError}
-                    </Text>
-                    <TextInput
-                        placeholder='Password..'
-                        onBlur={() => validatePassword()}
-                        onChangeText={setPassword}
-                        value={password}
-                        style={formStyles.textInput}
-                        secureTextEntry={true}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {passwordError}
-                    </Text>
-                    <PrimaryButton text='Login' onPress={() => { login(email, password) }} />
-                    <Text style={formStyles.smallText} onPress={() => signup()}>
-                        Don't have an account? Sign up
-                    </Text>
-                </View>
+                source={require('../../assets/images/background.png')}
+                style={styles.imageBackground}>
+                <Title titleName='Welcome Back' />
+                <ImageBackground
+                    source={require('../../assets/images/cardLight.png')}
+                    style={formStyles.cardImage}>
+                    <View style={formStyles.card}>
+                        <TextInput
+                            onBlur={() => validateEmail()}
+                            placeholder='Email..'
+                            onChangeText={setEmail}
+                            value={email}
+                            style={formStyles.textInput}
+                            placeholderTextColor='#50A9DB' />
+                        <Text style={formStyles.errorText} onPress={() => signup()}>
+                            {emailError}
+                        </Text>
+                        <TextInput
+                            placeholder='Password..'
+                            onBlur={() => validatePassword()}
+                            onChangeText={setPassword}
+                            value={password}
+                            style={formStyles.textInput}
+                            secureTextEntry={true}
+                            placeholderTextColor='#50A9DB' />
+                        <Text style={formStyles.errorText} onPress={() => signup()}>
+                            {passwordError}
+                        </Text>
+                        <PrimaryButton text='Login' onPress={() => { login(email, password) }} />
+                        <Text style={formStyles.smallText} onPress={() => signup()}>
+                            Don't have an account? Sign up
+                        </Text>
+                    </View>
+                </ImageBackground>
             </ImageBackground>
-        </ImageBackground>
+        </ScrollView>
     );
 
 };
