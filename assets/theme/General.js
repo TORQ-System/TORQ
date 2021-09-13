@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#101010',
     },
     bootsplash: {
         flex: 1,
@@ -53,5 +52,14 @@ export const styles = StyleSheet.create({
         marginLeft: 40,
         fontSize: 12,
     },
+    card: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    imageBackground: {
+        backgroundColor: '#0000',
+        height: Dimensions.get('window').height, // applied to Image
+        width: Dimensions.get('window').width
+    }
 }
 );

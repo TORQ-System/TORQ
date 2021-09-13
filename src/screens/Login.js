@@ -1,9 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { styles } from "../../assets/theme/General";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
-import LinearGradient from 'react-native-linear-gradient';
+import { styles as formStyles } from "../../assets/theme/Forms";
+import { View, Text, TextInput, ImageBackground } from "react-native";
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
+import Title from '../components/Title';
+import PrimaryButton from '../components/PrimaryButton';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -13,40 +15,30 @@ const Login = ({ navigation }) => {
 
     const validateEmail = () => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-
-        if (email == '') {
-            setEmailError('email cannot be empty')
-        }
-        if (reg.test(email) === false) {
+        if (email == '')
+            setEmailError('email cannot be empty');
+        if (reg.test(email) === false)
             setEmailError('invalid email');
-        }
-        else {
+        else
             setEmailError('');
-        }
-
     }
     const validatePassword = () => {
-        if (password == '') {
+        if (password == '')
             setPasswordError('password cannot be empty');
-        }
-        else if (password.length < 6) {
+        else if (password.length < 6)
             setPasswordError('password cannot be less than 6 charachters');
-        }
-        else {
+        else
             setPasswordError('');
-        }
-
     }
 
     const login = (email, password) => {
-        if (email === '' || password === '') {
+        if (email === '' || password === '')
             Toast.show({
                 type: 'error',
                 text1: 'Invalid Credentials',
                 text2: 'Fields cannot be empty',
                 position: 'top',
             });
-        }
         else {
             auth()
                 .signInWithEmailAndPassword(email, password)
@@ -67,7 +59,6 @@ const Login = ({ navigation }) => {
                             position: 'top',
                         });
                     }
-
                     if (error.code === 'auth/invalid-email') {
                         Toast.show({
                             type: 'error',
@@ -76,7 +67,6 @@ const Login = ({ navigation }) => {
                             position: 'top',
                         });
                     }
-
                     else {
                         Toast.show({
                             type: 'error',
@@ -84,7 +74,6 @@ const Login = ({ navigation }) => {
                             text2: 'Incorrect email or password',
                             position: 'top',
                         });
-
                     }
                 });
         }
@@ -95,58 +84,42 @@ const Login = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                onBlur={() => validateEmail()}
-                placeholder='Email..'
-                onChangeText={setEmail}
-                value={email}
-                style={styles.textInput}
-            />
-
-            <Text
-                style={styles.errorText}
-                onPress={() => signup()}>
-                {emailError}
-            </Text>
-
-            <TextInput
-                placeholder='Password..'
-                onBlur={() => validatePassword()}
-                onChangeText={setPassword}
-                value={password}
-                style={styles.textInput}
-                secureTextEntry={true}
-            />
-
-            <Text
-                style={styles.errorText}
-                onPress={() => signup()}>
-                {passwordError}
-            </Text>
-
-
-            <TouchableOpacity
-                style={styles.buttonPrimary}
-                onPress={() => login(email, password)}
-            >
-                <LinearGradient
-                    colors={['#0588D0', '#0588D0', '#4DBDC2']}
-                    style={styles.gradient}
-                    useAngle={true}
-                    angle={145}
-                    angleCenter={{ x: 0.5, y: 0.5 }}>
-                    <Text style={styles.textDark}>Login</Text>
-                </LinearGradient>
-            </TouchableOpacity>
-
-            <Text
-                style={styles.smallText}
-                onPress={() => signup()}>
-                Don't have an account? Sign up
-            </Text>
-
-        </View>
+        <ImageBackground
+            source={require('../../assets/images/background.png')}
+            style={styles.imageBackground}>
+            <Title titleName='Welcome Back' />
+            <ImageBackground
+                source={require('../../assets/images/cardLight.png')}
+                style={formStyles.cardImage}>
+                <View style={formStyles.card}>
+                    <TextInput
+                        onBlur={() => validateEmail()}
+                        placeholder='Email..'
+                        onChangeText={setEmail}
+                        value={email}
+                        style={formStyles.textInput}
+                        placeholderTextColor='#50A9DB' />
+                    <Text style={formStyles.errorText} onPress={() => signup()}>
+                        {emailError}
+                    </Text>
+                    <TextInput
+                        placeholder='Password..'
+                        onBlur={() => validatePassword()}
+                        onChangeText={setPassword}
+                        value={password}
+                        style={formStyles.textInput}
+                        secureTextEntry={true}
+                        placeholderTextColor='#50A9DB' />
+                    <Text style={formStyles.errorText} onPress={() => signup()}>
+                        {passwordError}
+                    </Text>
+                    <PrimaryButton text='Login' onPress={() => { login(email, password) }} />
+                    <Text style={formStyles.smallText} onPress={() => signup()}>
+                        Don't have an account? Sign up
+                    </Text>
+                </View>
+            </ImageBackground>
+        </ImageBackground>
     );
 
 };
