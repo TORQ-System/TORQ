@@ -23,7 +23,7 @@ const ViewRequest = () => {
            
              <Text style={styles1.id} > Shahad Alshahrani |113292827</Text>
             
-           <Button style={styles1.viewbutten} title="View Request"/>
+         
             </View>
            
             <View style={styles1.locationbox}>
@@ -38,9 +38,12 @@ const ViewRequest = () => {
       />
       
       <Text style={styles1.name}>location</Text>
+      
       <Text style={styles1.id1}>06:20:12:11</Text>
    
             </View>
+            <Button style={styles1.viewbutten} 
+        color='#50A9DB' title="View Request" size={4}/>
         </View>
             <View style={styles1.ListStyalee}>
            <View style={styles1.Fbox}>
