@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text ,StyleSheet,ScrollView,Image,ImageBackground} from "react-native";
+import { View, Text ,StyleSheet,ScrollView,Image,ImageBackground, Button} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "../../assets/theme/General";
 
@@ -14,42 +14,32 @@ const ViewRequest = () => {
        
         
         <View style={styles1.container}>
+        
         <ImageBackground source={ require('../../assets/BACK.png') } resizeMode="cover" style={styles1.image}>
+        <Text  style={styles1.text}>Requests</Text>
         <ScrollView>
-            <View style={styles1.ListStyalee1}>
-                <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>1</Text></View>
+            <View style={styles1.ListStyalee}>
+                <View style={styles1.locationbox}>
+           
+             <Text style={styles1.id} > Shahad Alshahrani |113292827</Text>
+            
+           <Button style={styles1.viewbutten} title="View Request"/>
             </View>
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:20,
-     width:20
-   }}
-        source={require('../../assets/id2.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                           ID: 113292827</Text>
-   </View>
-            </View>
+           
             <View style={styles1.locationbox}>
             <Image
      style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:20,
-     width:20
+      marginHorizontal:3,
+     
+     height:16,
+     width:16
    }}
-        source={require('../../assets/location2.png')}
+        source={require('../../assets/pinl.png')}
       />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
+      
+      <Text style={styles1.name}>location</Text>
+      <Text style={styles1.id1}>06:20:12:11</Text>
+   
             </View>
         </View>
             <View style={styles1.ListStyalee}>
@@ -79,245 +69,19 @@ const ViewRequest = () => {
      style={{
       marginHorizontal:10,
       marginTop:10,
-     height:20,
-     width:20
+     height:18,
+     width:18
    }}
-        source={require('../../assets/locationicon.png')}
+        source={require('../../assets/pinn.png')}
       />
       <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
+      <Text style={styles1.loc}> 24.752631023245485 </Text>
+   <Text style={styles1.loc}>  46.721276215971216</Text>
    </View>
             </View>
             </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>3</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>1</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>4</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>5</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>6</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
-            <View style={styles1.ListStyalee}>
-           <View style={styles1.Fbox}>
-            <Text style={styles1.name} >Ahmed Alahmed</Text>
-            <View style={styles1.circle}><Text>7</Text></View>
-            </View>
-            
-
-                        <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/id.png')}
-      />
-      <View>
-      <Text style={styles1.id} >   
-                          ID:113292827</Text>
-   </View>
-            </View>
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:10,
-      marginTop:10,
-     height:25,
-     width:25
-   }}
-        source={require('../../assets/locationicon.png')}
-      />
-      <View>
-      <Text style={styles1.loc}>  latitude:24.752631023245485</Text>
-   <Text style={styles1.loc}>  longitude: 46.721276215971216</Text>
-   </View>
-            </View>
-            </View>
+         
+       
             </ScrollView>
         </ImageBackground>
       </View>
@@ -338,7 +102,7 @@ export const styles1 = StyleSheet.create({
       margin:15,
       marginLeft: 20,
       marginRight:20,
-     
+     paddingRight:1,
    
     backgroundColor:"white",
     borderRadius:8,
@@ -384,29 +148,42 @@ export const styles1 = StyleSheet.create({
       },
    
       text: {
-         
+         marginLeft:15,
         color: "white",
         fontSize: 42,
         lineHeight: 84,
         fontWeight: "bold",
         //textAlign: "center",
-        backgroundColor: "#000000c0"
+       
       },
       name:{
-        paddingLeft:10,
+      
           color:"#50A9DB"
-         , fontSize: 18,
-       marginBottom:3,
-        fontWeight: "bold",
+         , fontSize: 15,
+         fontWeight:"bold"
+     
+       
        // textAlign: "center",
       },
       id:{
-        color:"#919191"
-       , fontSize:15,
+        color:"gray"
+       , fontSize:16,
+       marginBottom:7,
+       
      
-      fontWeight: "bold",
+    fontWeight: "bold",
       marginTop:10,
     },
+    id1:{
+      color:"gray"
+     , fontSize:14,
+     marginHorizontal:130,
+    
+     
+   
+    fontWeight: "bold",
+   
+  },
     locationbox:{
         flexDirection: "row",
     }, Fbox:{
@@ -431,6 +208,13 @@ export const styles1 = StyleSheet.create({
         marginHorizontal:150
        , paddingLeft:5,
       },
+      viewbutten:{
+        marginHorizontal:9,
+        borderRadius:7,
+        backgroundColor:"#50A9DB",
+        color:"white"
+
+      }
    }
     )
 
