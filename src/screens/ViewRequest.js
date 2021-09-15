@@ -1,4 +1,5 @@
 import React from 'react';
+import  { useState } from 'react';
 import { View, Text ,StyleSheet,ScrollView,Image,ImageBackground, Button,TouchableOpacity} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "../../assets/theme/General";
@@ -7,7 +8,7 @@ import PrimaryButton from '../../src/screens/PrimaryButton';
 
 
 const ViewRequest = () => {
-    
+  const [shouldShow, setShouldShow] = useState(true);
     return (
   
         <View style={styles1.container}>
@@ -40,7 +41,15 @@ const ViewRequest = () => {
    
             </View>
           
-
+            {shouldShow ? (
+          <Image
+            source={{
+              uri:
+                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
+            }}
+            style={{ width: 250, height: 250 }}
+          />
+        ) : null}
         </View>
         <View style={styles1.ListStyalee}>
                 <View style={styles1.locationbox}>
@@ -73,7 +82,7 @@ const ViewRequest = () => {
                 <View style={styles1.locationbox}>
            
              <Text style={styles1.id} > Shahad Alshahrani |113292827</Text>
-             <PrimaryButton text='View'/>
+             <PrimaryButton text='View'  onPress={() => setShouldShow(!shouldShow)}/>
          
             </View>
            
