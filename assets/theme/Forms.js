@@ -28,17 +28,26 @@ export const styles = StyleSheet.create({
         marginLeft: 40,
         fontSize: 12,
     },
-    card: {
-        marginTop: '25%',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: 50,
-    },
     cardImage: {
-        height: Dimensions.get('window').width * 1.20, // applied to Image
+        height: Dimensions.get('window').width * (4 / 3), // applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
         justifyContent: 'center',
+
+    },
+    form: {
+        paddingTop: 25,
+        flex: 1,
+        justifyContent: 'center',
+    },
+    inputs: {
+        paddingTop: 40,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    actions: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     }
 }
 );
