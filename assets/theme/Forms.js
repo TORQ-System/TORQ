@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 
 export const styles = StyleSheet.create({
     textDark: {
@@ -15,7 +15,8 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: '#6FB6DF',
         padding: 5,
-        color: '#50A9DB'
+        color: '#50A9DB',
+        marginBottom: 16,
     },
     smallText: {
         fontWeight: 'bold',
@@ -39,10 +40,24 @@ export const styles = StyleSheet.create({
         marginBottom: 50,
     },
     cardImage: {
-        height: Dimensions.get('window').width * 1.20, // applied to Image
+        height: Dimensions.get('window').width * 1.48 , // applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
+        marginTop: 60,
         justifyContent: 'center',
-    }
+        
+    },
+    picker: {
+        width: 150,
+        padding: 5,
+    },
+    SelectDropdown: {
+        backgroundColor: '#EDEDED',
+        borderBottomColor: '#6FB6DF',
+        width: 50,
+    },
+    dropdownTextStyle: {
+        color: "#50A9DB",
+    },
 }
 );

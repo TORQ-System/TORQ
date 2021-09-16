@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import auth from '@react-native-firebase/auth';
 import Signup from './src/screens/Signup';
 import Login from './src/screens/Login';
+import nextSignup from './src/screens/nextSignup';
 import Loader from './src/screens/Loader';
 import Home from './src/screens/Home';
 import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
@@ -83,6 +84,7 @@ const App = () => {
                 }}>
                     <Stack.Screen name="Login" component={Login} />
                     <Stack.Screen name="Sign up" component={Signup} />
+                    <Stack.Screen name="Next Sign up" component={nextSignup} />
                 </Stack.Navigator>
                 <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
             </NavigationContainer>
