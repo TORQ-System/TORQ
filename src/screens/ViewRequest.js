@@ -4,11 +4,11 @@ import { View, Text ,StyleSheet,ScrollView,Image,ImageBackground, Button,Touchab
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "../../assets/theme/General";
 import PrimaryButton from '../../src/screens/PrimaryButton';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const ViewRequest = () => {
-  const [shouldShow, setShouldShow] = useState(true);
+  const [shouldShow, setShouldShow] = useState(false);
     return (
   
         <View style={styles1.container}>
@@ -19,9 +19,21 @@ const ViewRequest = () => {
             <View style={styles1.ListStyalee}>
                 <View style={styles1.locationbox}>
            
-             <Text style={styles1.id} > Shahad Alshahrani |113292827</Text>
-             <PrimaryButton text='View'/>
-         
+             <Text style={styles1.id} > Rahofiiii |113292827</Text>
+             {/* <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/> */}
+             <TouchableOpacity
+            style={styles1.buttonPrimary}
+            onPress={() => setShouldShow(!shouldShow)}>
+           
+            <LinearGradient
+                colors={['#0588D0', '#4DBDC2']}
+                style={styles1.gradient}
+                useAngle={true}
+                angle={145}
+                angleCenter={{ x: 0.5, y: 0.5 }}>
+                <Text style={styles1.textDark}>view</Text>
+            </LinearGradient>
+        </TouchableOpacity>
             </View>
            
             <View style={styles1.locationbox}>
@@ -55,7 +67,7 @@ const ViewRequest = () => {
                 <View style={styles1.locationbox}>
            
              <Text style={styles1.id} > Shahad Alshahrani |113292827</Text>
-             <PrimaryButton text='View'/>
+             <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/>
          
             </View>
            
@@ -76,7 +88,15 @@ const ViewRequest = () => {
    
             </View>
           
-
+            {shouldShow ? (
+          <Image
+            source={{
+              uri:
+                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
+            }}
+            style={{ width: 250, height: 250 }}
+          />
+        ) : null}
         </View>
         <View style={styles1.ListStyalee}>
                 <View style={styles1.locationbox}>
@@ -313,7 +333,23 @@ export const styles1 = StyleSheet.create({
     locationbox:{
         flexDirection: "row",
     },
-  
+    gradient: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 40,
+  },
+  buttonPrimary: {
+      marginTop: 10,
+      width: '18%',
+      height: 24,
+      marginHorizontal:14
+  },
+  textDark: {
+      fontSize: 18,
+      color: '#FFF',
+      fontWeight: 'bold'
+  },
     
    }
     )
