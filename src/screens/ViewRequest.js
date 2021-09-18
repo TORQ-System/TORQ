@@ -5,7 +5,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "../../assets/theme/General";
 import PrimaryButton from '../../src/screens/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
+import database from '@react-native-firebase/database';
+import React, { useEffect } from 'react';
+import firestore from '@react-native-firebase/firestore';
 
+function User({ userId }) {
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Users')
+      .doc(userId)
+      .onSnapshot(documentSnapshot => {
+        console.log('User data: ', documentSnapshot.data());
+      });
+
+    // Stop listening for updates when no longer required
+ 
 
 const ViewRequest = () => {
   const [shouldShow, setShouldShow] = useState(false);
