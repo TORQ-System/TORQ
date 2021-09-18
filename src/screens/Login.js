@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
 import { View, Text, TextInput, ImageBackground, ScrollView, Image } from "react-native";
