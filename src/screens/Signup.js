@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import Toast from 'react-native-toast-message';
 import auth from '@react-native-firebase/auth';
@@ -23,34 +23,36 @@ const Signup = ({ navigation }) => {
     //User table in database
     const newReference = database().ref('/User').push();
 
-     // Gender
-    const [gender, setGender] = useState('');
-    const radioButtonsData = [ { id: '1' , label: 'Male' , value: 'M', labelStyle:{color: '#50A9DB'} }, { id:'2', label: 'Female' , value: 'F', labelStyle:{color: '#50A9DB'}  } ];
-     
+    // Gender
+    const [gender, setGender] = useState('F');
+    // I have added selected = true to the male radio button so we can ensure that users choose a gender
+    const radioButtonsData = [{ id: '1', label: 'Male', value: 'M', labelStyle: { color: '#50A9DB' }, selected: true, }, { id: '2', label: 'Female', value: 'F', labelStyle: { color: '#50A9DB' } }];
+
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
- 
+
     // Date of Birth
     // const [dob, setDob] = useState('00/00/0000');
     const [date, setDate] = useState(new Date());
     // const [dobError, setDobError] = useState('');
-  
-    const [open, setOpen] = useState(false)
-   
-     // Radio button function 
-     function onPressRadioButton(radioButtonsArray) {
-     
-        let selected = radioButtonsArray.find((e) => e.selected);
-        setGender(selected.value);
-        setRadioButtons(radioButtonsArray);
-        console.log({gender});
 
-        
+    const [open, setOpen] = useState(false)
+
+    // Radio button function 
+    function onPressRadioButton(radioButtonsArray) {
+
+        let selected = radioButtonsArray.find((e) => e.selected);
+        setGender(selected.value); // you can implement your logic of switching the gender here
+        setRadioButtons(radioButtonsArray);
+        //gender now always has a value opposite of the actual selection
+        console.log(gender);
+
+
         // console.log(radioButtonsArray);
         //  selectedButton = radioButtonsArray.find(e => e.selected == true);
         //  selectedButton = selectedButton ? selectedButton.value : radioButtonsArray[0].label;
-         
+
         //  setGender(selectedButton);
-        
+
         //  alert(selected.value);
         //  selectedRadioButton = {selectedButton};
         //  setGender(selectedRadioButton);
@@ -60,17 +62,17 @@ const Signup = ({ navigation }) => {
         //  else{
         //     setGender('F');
         // }
-            
+
         // console.log({gender});
-         
-     }
-    
-      function DateSelected() {
-         return (<Text> DOB : {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()} </Text>);
-       }
+
+    }
+
+    function DateSelected() {
+        return (<Text> DOB : {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} </Text>);
+    }
 
     // newReference.set({ Fname: 'Aleen', Lname:'Wael', Email:'aleen@gmail.com', password:'aa123456', }).then(() => console.log('Data updated.'));
-   
+
     const validateEmail = () => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (email == '')
@@ -88,26 +90,26 @@ const Signup = ({ navigation }) => {
         else
             setPasswordError('');
     }
-    const validateFname = () =>{
+    const validateFname = () => {
         // not less than 2 characters for both fname & lname
-        if(fname.length < 2)
+        if (fname.length < 2)
             setFnameError('First Name cannot be less than 2 characters');
-        else 
+        else
             setFnameError('');
     }
-    const validateLname = () =>{
+    const validateLname = () => {
         // not less than 2 characters for both fname & lname
-        if(lname.length < 2)
+        if (lname.length < 2)
             setLnameError('Last Name cannot be less than 2 characters');
-        else 
+        else
             setLnameError('');
     }
-    const validatePhone = () =>{
+    const validatePhone = () => {
         //numbers only
         //starts with 05
         //length == 10
     }
-    const validateNationalID = () =>{
+    const validateNationalID = () => {
         // numbers only
         // length == 10
     }
@@ -130,36 +132,48 @@ const Signup = ({ navigation }) => {
         // }
     }
 
-
-    const signup = (email, password,fname,lname) => {
-        if (email === '' || password === '' || fname ==='' || lname==='')
+    const signup = (email, password, fname, lname) => {
+        if (email === '' || password === '' || fname === '' || lname === '')
             Toast.show({
                 type: 'error',
                 text1: 'Invalid Credentials',
                 text2: 'Fields cannot be empty',
                 position: 'top',
             });
-            // This step should be in the next page
-            else{
-                auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then(() => {
-                    newReference.set({ Fname:fname, Lname:lname, Email:email, Password:password, }).then(() => console.log('Data updated.')); 
-                    alert('success');
-                     })
-                .catch( error => {
-                    
-                    if (error.code === 'auth/email-already-in-use') {
-                        alert('That email address is already in use!');
-                    }
-    
-                    if (error.code === 'auth/invalid-email') {
-                        alert('That email address is invalid!');
-                    }
-                    console.error(error);
-                
+        // If the user entered an email we will chcek whether its domain is of the SRCA
+        else if (email != '') {
+            let emailDomain = email.substring(email.indexOf('@') + 1); // extracting the domain
+            // if the domain is the SRCA we will display a toast and NOT sign them up
+            if (emailDomain === 'srca.org.sa') {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Incorrect Email',
+                    text2: 'Email domain is restricted',
+                    position: 'top',
                 });
             }
+            // This step should be in the next page
+            else {
+                auth()
+                    .createUserWithEmailAndPassword(email, password)
+                    .then(() => {
+                        newReference.set({ Fname: fname, Lname: lname, Email: email, Password: password, }).then(() => console.log('Data updated.'));
+                        alert('success');
+                    })
+                    .catch(error => {
+
+                        if (error.code === 'auth/email-already-in-use') {
+                            alert('That email address is already in use!');
+                        }
+
+                        if (error.code === 'auth/invalid-email') {
+                            alert('That email address is invalid!');
+                        }
+                        console.error(error);
+
+                    });
+            }
+        }
     }
 
 
@@ -202,8 +216,9 @@ const Signup = ({ navigation }) => {
                     <Text style={formStyles.errorText} onPress={() => signup()}>
                         {lnameError}
                     </Text>
-                        
-                    <Text style={{fontSize: 16,
+
+                    <Text style={{
+                        fontSize: 16,
                         width: '80%',
                         borderBottomWidth: 2,
                         borderColor: '#6FB6DF',
@@ -214,40 +229,41 @@ const Signup = ({ navigation }) => {
                     }} > Gender </Text>
                     <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
 
-                     <>
-                     <TouchableOpacity
-                        style={{fontSize: 16,
-                        width: '80%',
-                        borderBottomWidth: 2,
-                        borderColor: '#6FB6DF',
-                        padding: 5,
-                        color: '#50A9DB',
-                        marginBottom: 16,
-                        marginTop: 16,
-                    }}
-                        onPress={() => setOpen(true)}
-                    > 
-                        <Text style={{color: '#50A9DB',fontSize: 16}} >Select Date of birth</Text>
-                    </TouchableOpacity>
-                    
-                  {/* {Date Picker from https://github.com/henninghall/react-native-date-picker#:~:text=Fork%20161-,React%20Native%20Date%20Picker%20is%20datetime%20picker%20for%20Android%20and,possible%20look,%20feel%20and%20performance. */}
-                  <Text>  {DateSelected()} </Text>
-                  <DatePicker
-                     modal
-                     open={open}
-                     date={date}
-                     mode='date'
-                     title='Select Date of Birth'
-                     minimumDate = {new Date("1900-12-31")}
-                     maximumDate = {new Date()}
-                     onConfirm={(date) => {
-                     setOpen(false)
-                     setDate(date)
-                     }}
-                     onCancel={() => {
-                     setOpen(false)
-                     }}
-                     />
+                    <>
+                        <TouchableOpacity
+                            style={{
+                                fontSize: 16,
+                                width: '80%',
+                                borderBottomWidth: 2,
+                                borderColor: '#6FB6DF',
+                                padding: 5,
+                                color: '#50A9DB',
+                                marginBottom: 16,
+                                marginTop: 16,
+                            }}
+                            onPress={() => setOpen(true)}
+                        >
+                            <Text style={{ color: '#50A9DB', fontSize: 16 }} >Select Date of birth</Text>
+                        </TouchableOpacity>
+
+                        {/* {Date Picker from https://github.com/henninghall/react-native-date-picker#:~:text=Fork%20161-,React%20Native%20Date%20Picker%20is%20datetime%20picker%20for%20Android%20and,possible%20look,%20feel%20and%20performance. */}
+                        <Text>  {DateSelected()} </Text>
+                        <DatePicker
+                            modal
+                            open={open}
+                            date={date}
+                            mode='date'
+                            title='Select Date of Birth'
+                            minimumDate={new Date("1900-12-31")}
+                            maximumDate={new Date()}
+                            onConfirm={(date) => {
+                                setOpen(false)
+                                setDate(date)
+                            }}
+                            onCancel={() => {
+                                setOpen(false)
+                            }}
+                        />
                     </>
                     {/* <Text style={formStyles.errorText} onPress={() => signup()}>
                         {dobError}
@@ -273,13 +289,13 @@ const Signup = ({ navigation }) => {
                     <Text style={formStyles.errorText} onPress={() => signup()}>
                         {passwordError}
                     </Text> */}
-                    
+
                     {/* <PrimaryButton text='NEXT' onPress={() => {navigation.navigate('Next Sign up')}} /> */}
-                    <PrimaryButton text='SIGN UP' onPress={() => signup(email, password,fname,lname)} />
+                    <PrimaryButton text='SIGN UP' onPress={() => signup(email, password, fname, lname)} />
                     <Text style={formStyles.smallText} onPress={() => login()}>
                         Have an account? Login
                     </Text>
-                    
+
                 </View>
             </ImageBackground>
         </ImageBackground>
