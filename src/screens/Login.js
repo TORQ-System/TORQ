@@ -43,14 +43,8 @@ const Login = ({ navigation }) => {
             auth()
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    Toast.show({
-                        type: 'success',
-                        text1: 'Welcom Back!',
-                        text2: 'We\'ve missed you ✌',
-                        position: 'top',
-                    });
-                })
-                .catch(error => {
+
+                }).catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
                         Toast.show({
                             type: 'error',
@@ -127,7 +121,6 @@ const Login = ({ navigation }) => {
             </ImageBackground>
         </ScrollView>
     );
-
 };
 
 export default Login;

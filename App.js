@@ -21,7 +21,6 @@ const App = () => {
         isUser = (emailDomain === 'srca.org.sa' ? 0 : 1);
         return isUser;
     }
-
     function onAuthStateChanged(user) {
         setUser(user);
         if (initializing) setInitializing(false);
@@ -62,7 +61,6 @@ const App = () => {
 
     );
 };
-
 
 export default App;
 
