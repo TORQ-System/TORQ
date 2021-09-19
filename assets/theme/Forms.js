@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
     errorText: {
         color: 'red',
         alignSelf: 'flex-start',
-        marginTop: 5,
-        marginBottom: 5,
+        marginTop: 0,
+        marginBottom: 0,
         padding: 0,
         marginLeft: 40,
         fontSize: 12,
@@ -47,10 +47,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         
     },
-    picker: {
-        width: 150,
-        padding: 5,
-    },
+
     SelectDropdown: {
         backgroundColor: '#EDEDED',
         borderBottomColor: '#6FB6DF',
@@ -59,5 +56,6 @@ export const styles = StyleSheet.create({
     dropdownTextStyle: {
         color: "#50A9DB",
     },
+    
 }
 );

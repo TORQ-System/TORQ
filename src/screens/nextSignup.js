@@ -1,53 +1,52 @@
 import React, { useContext, useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, Button} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, Button, ScrollView} from "react-native";
 import LinearGradient from 'react-native-linear-gradient';
 import auth from '@react-native-firebase/auth';
 import Title from '../components/Title';
 import PrimaryButton from '../components/PrimaryButton';
-import {Picker} from '@react-native-picker/picker';
-import SelectDropdown from 'react-native-select-dropdown';
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-
+import RadioGroup from 'react-native-radio-buttons-group';
+import DatePicker from 'react-native-date-picker'
 
 const nextSignup = ({ navigation }) => {
-    const [fname, setfname] = useState('');
-    const [lname, setLname] = useState('');
+
+    // Phone Number
     const [phone, setPhone] = useState('');
+    // National ID
     const [nationalID, setNationalID] = useState('');
+    // Gender
     const [gender, setGender] = useState('none');
-    const [dob, setDob] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const radioButtonsData = [ { id: '1' , label: 'Male' , value: 'M', labelStyle:{color: '#50A9DB'} }, 
+                               { id:'2', label: 'Female' , value: 'F', labelStyle:{color: '#50A9DB'}} ];
+    
+    const [radioButtons, setRadioButtons] = useState(radioButtonsData)
+
+    // Date of Birth
+    const [dob, setDob] = useState('00/00/0000');
     const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
+ 
+    const [open, setOpen] = useState(false)
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShow(Platform.OS === 'ios');
-        setDate(currentDate);
-      };
-    
-      const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-      };
-    
-      const showDatepicker = () => {
-        showMode('date');
-      };
-      
-      const showTimepicker = () => {
-        showMode('time');
-      };
-    
-
-    const validateName = () =>{
-        // not less than 2 characters for both fname & lname
+    function onPressRadioButton(radioButtonsArray) {
+        setRadioButtons(radioButtonsArray);
     }
+   
+     function DateSelected() {
+        return (<Text> DOB : {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()} </Text>);
+      }
+      
+    //   function DateNotSelected(props) {
+    //     return (<Text> Please select Date of Birth </Text>);
+    //   }
+    //   function OnDateSelected(props) {
+    //     const isSelected = props.isSelected;
+    //     if (isSelected) {
+    //       return <DateSelected />;
+    //     }
+    //     return <DateNotSelected />;
+    //   }
+
     const validatePhone = () =>{
         //numbers only
         //starts with 05
@@ -61,26 +60,6 @@ const nextSignup = ({ navigation }) => {
         // greater than 18?
     }
 
-
-    // const signup = (email, password) => {
-    //     auth()
-    //         .createUserWithEmailAndPassword(email, password)
-    //         .then(() => {
-    //             alert('success')
-    //         })
-    //         .catch(error => {
-    //             if (error.code === 'auth/email-already-in-use') {
-    //                 alert('That email address is already in use!');
-    //             }
-
-    //             if (error.code === 'auth/invalid-email') {
-    //                 alert('That email address is invalid!');
-    //             }
-
-    //             console.error(error);
-    //         });
-    // }
-
     const login = () => {
         // Direct user to Login page
         navigation.navigate('Login');
@@ -91,7 +70,6 @@ const nextSignup = ({ navigation }) => {
     // }
 
     return (
-        
         <ImageBackground
             source={require('../../assets/images/background.png')}
             style={styles.imageBackground}>
@@ -120,71 +98,47 @@ const nextSignup = ({ navigation }) => {
                         maxLength = {10}
                         style={formStyles.textInput}
                         placeholderTextColor='#50A9DB' />
-                    {/* <Picker
-                        onValueChange={(value, index) => setGender(value)}
-                        selectedValue={gender}
-                        mode='dropdown'
-                        style={formStyles.picker}
-                        >
-                        <Picker.Item label="Gender" value="none"/>
-                        <Picker.Item label="Male" value="M" />
-                        <Picker.Item label="Female" value="F" />
-                    </Picker> */}
+                        
                     <Text style={formStyles.textInput} > Gender </Text>
-                    <SelectDropdown
-                        defaultButtonText={['Select']}
-                        dropdownStyle={formStyles.SelectDropdown}
-                        buttonTextStyle={formStyles.dropdownTextStyle}
-	                    data={['Male','Female']}
-	                    onSelect={(selectedItem, index) => {
-		                console.log(selectedItem, index)
-	                    }}
-	                    buttonTextAfterSelection={(selectedItem, index) => {
-		                // text represented after item is selected
-		                // if data array is an array of objects then return selectedItem.property to render after item is selected
-		                return selectedItem
-	                    }}
-	                    rowTextForSelection={(item, index) => {
-		                // text represented for each item in dropdown
-		                // if data array is an array of objects then return item.property to represent item in dropdown
-		                return item
-	                    }}
-                    />
-                    
-                    <Text style={formStyles.textInput} > Date of Birth </Text>
-                    <View>
-                         <View>
-                             <Button onPress={showDatepicker} title="Show date picker!" />
-                        </View>
-                     {/* <View>
-                              <Button onPress={showTimepicker} title="Show time picker!" />
-                    </View> */}
-                         {show && (
-                             <DateTimePicker
-                             testID="dateTimePicker"
-                             value={date}
-                             mode={mode}
-                             is24Hour={true}
-                              display="spinner"
-                              onChange={onChange}
-                         />
-                      )}
-                    </View>
+                    <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
 
-                    {/* <Button onPress={() => showMode('date')} title="Select" style={{color:'#50A9DB'}} />
-                    <Button onPress={showTimepicker} title="Show time picker!" />
+                     <>
+                     <TouchableOpacity
+                        style={{fontSize: 16,
+                        width: '80%',
+                        borderBottomWidth: 2,
+                        borderColor: '#6FB6DF',
+                        padding: 5,
+                        color: '#50A9DB',
+                        marginBottom: 16,
+                        marginTop: 16,
+                    }}
+                        onPress={() => setOpen(true)}
+                    > 
+                        <Text style={{color: '#50A9DB',fontSize: 16}} >Select Date of birth</Text>
+                    </TouchableOpacity>
                     
-                    {show && ( <DateTimePicker
-                        testID="dateTimePicker"
-                        style={{height:150, color: '#50A9DB', backgroundColor: 'red'}}
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        display="spinner"
-                        onChange={onChange}
-                    />
-                    )} */}
-                    <PrimaryButton text='SIGN UP' />
+                  {/* Date Picker from https://github.com/henninghall/react-native-date-picker#:~:text=Fork%20161-,React%20Native%20Date%20Picker%20is%20datetime%20picker%20for%20Android%20and,possible%20look,%20feel%20and%20performance. */}
+                  <Text>  {DateSelected()} </Text>
+                  <DatePicker
+                     modal
+                     open={open}
+                     date={date}
+                     mode='date'
+                     title='Select Date of Birth'
+                     minimumDate = {new Date("1940-12-31")}
+                     maximumDate = {new Date("2003-12-31")}
+                     onConfirm={(date) => {
+                     setOpen(false)
+                     setDate(date)
+                     }}
+                     onCancel={() => {
+                     setOpen(false)
+                     }}
+                     />
+                    </>
+                   
+                    <PrimaryButton text='NEXT' />
                     <Text style={formStyles.smallText} onPress={() => login()}>
                         Have an account? Login
                     </Text>
