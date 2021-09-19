@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import  { useState } from 'react';
 import { View, Text ,StyleSheet,ScrollView,Image,ImageBackground, Button,TouchableOpacity,Linking} from "react-native";
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from "../../assets/theme/General";
 import PrimaryButton from '../../src/screens/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import database from '@react-native-firebase/database';
-
+import { elemIndices } from 'prelude-ls';
+import { element } from 'prop-types';
 import openMap from 'react-native-open-maps';
-
+import { data } from 'browserslist';
+import { createOpenLink } from 'react-native-open-maps';
 
 
  const userList=[];
 
 
  var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-class ViewRequest extends  Component{
+class database1 extends  Component{
   
    state ={ userList:[]}
     constructor(props){
@@ -55,10 +57,7 @@ render (){
         <ScrollView>
         
                 <View>
-        {this.state.userList.map((user,index) => 
-        
-        
-        <View style={styles1.ListStyalee}>
+        {this.state.userList.map((user,index) => <View style={styles1.ListStyalee}>
                 <View style={styles1.locationbox}>
            
              <Text style={styles1.id} > {user.Fname} {user.Lname} | {user.Request_ID} </Text>
@@ -109,9 +108,8 @@ render (){
             style={{ width: 250, height: 250 }}
           />
         ) : null} */}
-        
         </View>
-   
+    
     )}
     
   
@@ -219,9 +217,8 @@ const styles1 = StyleSheet.create({
   },
   buttonPrimary: {
       marginTop: 10,
-      width: '19%',
-      height: 29,
-     
+      width: '18%',
+      height: 24,
       //marginHorizontal:2,
       marginLeft:90
     
@@ -235,4 +232,4 @@ const styles1 = StyleSheet.create({
    }
     )
 
-    export default ViewRequest;
+    export default database1;
