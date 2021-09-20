@@ -89,7 +89,7 @@ const Login = ({ navigation }) => {
             style={styles.imageBackground}>
             <Title titleName='Welcome Back' />
             <ImageBackground
-                source={require('../../assets/images/cardLight.png')}
+                source={require('../../assets/images/Rectangle53.png')}
                 style={formStyles.cardImage}>
                 <View style={formStyles.card}>
                     <TextInput

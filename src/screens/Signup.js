@@ -12,6 +12,10 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import DatePicker from 'react-native-date-picker'
 
 const Signup = ({ navigation }) => {
+    
+    //User table in database
+    const newReference = database().ref('/User').push();
+
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [fnameError, setFnameError] = useState('');
@@ -20,76 +24,35 @@ const Signup = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    //User table in database
-    const newReference = database().ref('/User').push();
-
+    
     // Gender
-    const [gender, setGender] = useState('F');
-    // I have added selected = true to the male radio button so we can ensure that users choose a gender
-    const radioButtonsData = [{ id: '1', label: 'Male', value: 'M', labelStyle: { color: '#50A9DB' }, selected: true, }, { id: '2', label: 'Female', value: 'F', labelStyle: { color: '#50A9DB' } }];
-
+    const [gender, setGender] = useState();
+    const [genderError, setGenderError] = useState('');
+    const radioButtonsData = [{ id: '1', label: 'Male', value: 'M', labelStyle: { color: '#50A9DB' }, }, { id: '2', label: 'Female', value: 'F', labelStyle: { color: '#50A9DB' } }];
     const [radioButtons, setRadioButtons] = useState(radioButtonsData);
 
     // Date of Birth
-    // const [dob, setDob] = useState('00/00/0000');
     const [date, setDate] = useState(new Date());
-    // const [dobError, setDobError] = useState('');
-
-    const [open, setOpen] = useState(false)
+    const [dobError, setDobError] = useState('');
+    // To open date of birth popup window
+    const [open, setOpen] = useState(false);
+    // console.log(date.getDate().toString(),date.getMonth().toString(),date.getFullYear().toString());
 
     // Radio button function 
     function onPressRadioButton(radioButtonsArray) {
 
-        let selected = radioButtonsArray.find((e) => e.selected);
-        setGender(selected.value); // you can implement your logic of switching the gender here
+        const selectedOption = radioButtonsArray.find((e) => e.selected);
+        setGender(selectedOption.value);
         setRadioButtons(radioButtonsArray);
-        //gender now always has a value opposite of the actual selection
-        console.log(gender);
-
-
-        // console.log(radioButtonsArray);
-        //  selectedButton = radioButtonsArray.find(e => e.selected == true);
-        //  selectedButton = selectedButton ? selectedButton.value : radioButtonsArray[0].label;
-
-        //  setGender(selectedButton);
-
-        //  alert(selected.value);
-        //  selectedRadioButton = {selectedButton};
-        //  setGender(selectedRadioButton);
-        //  if(selectedButton === 'F'){
-        //     
-        //  }
-        //  else{
-        //     setGender('F');
-        // }
-
-        // console.log({gender});
-
+       
     }
+        // Testing Radio Button
+        // console.log(gender);
 
     function DateSelected() {
-        return (<Text> DOB : {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} </Text>);
+        return (<Text style={{color:'#52A4D5'}} > DOB : {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} </Text>);
     }
 
-    // newReference.set({ Fname: 'Aleen', Lname:'Wael', Email:'aleen@gmail.com', password:'aa123456', }).then(() => console.log('Data updated.'));
-
-    const validateEmail = () => {
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-        if (email == '')
-            setEmailError('email cannot be empty');
-        if (reg.test(email) === false)
-            setEmailError('invalid email');
-        else
-            setEmailError('');
-    }
-    const validatePassword = () => {
-        if (password == '')
-            setPasswordError('password cannot be empty');
-        else if (password.length < 6)
-            setPasswordError('password cannot be less than 6 charachters');
-        else
-            setPasswordError('');
-    }
     const validateFname = () => {
         // not less than 2 characters for both fname & lname
         if (fname.length < 2)
@@ -104,42 +67,34 @@ const Signup = ({ navigation }) => {
         else
             setLnameError('');
     }
-    const validatePhone = () => {
-        //numbers only
-        //starts with 05
-        //length == 10
-    }
-    const validateNationalID = () => {
-        // numbers only
-        // length == 10
-    }
-    // const validateDOB = () => {
-    //     // greater than 18?
-    //     todaysYear = new Date().getFullYear();
-    //     dobValidation = (todaysYear - date.getFullYear());
-    //     if(dobValidation >= 18){
-    //         console.log(dobValidation);
-    //         setDobError('');
-    //     }
-    //     else{
-    //         console.log('You must be greater than 18');
-    //         setDobError('You must be greater than 18');
-    //     }
-    // }
-    const validateGender = () => {
-        // if(radioButtonsData){
 
-        // }
+    const validateDOB = () => {
+        TodaysDate = new Date();
+        if(date === TodaysDate){
+            setDobError('Please select Date of Birth');
+        }
+        else{
+            setDobError('');
+        }
+    }
+    const validateGender = () => {
+        if(typeof(gender) === 'undefined'){
+            setGenderError('Please select your gender');
+        }
+        else{
+            setGenderError('');
+        }
     }
 
     const signup = (email, password, fname, lname) => {
-        if (email === '' || password === '' || fname === '' || lname === '')
+        if (email === '' || password === '' || fname === '' || lname === ''){
             Toast.show({
                 type: 'error',
                 text1: 'Invalid Credentials',
                 text2: 'Fields cannot be empty',
                 position: 'top',
             });
+        }
         // If the user entered an email we will chcek whether its domain is of the SRCA
         else if (email != '') {
             let emailDomain = email.substring(email.indexOf('@') + 1); // extracting the domain
@@ -176,15 +131,28 @@ const Signup = ({ navigation }) => {
         }
     }
 
+    const nextStep = (fname, lname, gender, date) => {
+        if (fname === '' || lname === '' || typeof(gender) === 'undefined'){
+            validateFname();
+            validateLname();
+            validateGender();
+            
+            Toast.show({
+                type: 'error',
+                text1: 'Invalid Credentials',
+                text2: 'Fields cannot be empty',
+                position: 'top',
+            });
+        }
+        else {
+            navigation.navigate('Next Sign up', {Fname:fname,Lname:lname,Gender:gender,Dob:date});
+        }
+    }
 
     const login = () => {
         // Direct user to Login page
         navigation.navigate('Login');
         // navigation.goBack();
-    }
-
-    const NextSignup = () => {
-        navigation.navigate('Next Sign up');
     }
 
     return (
@@ -203,7 +171,7 @@ const Signup = ({ navigation }) => {
                         value={fname}
                         style={formStyles.textInput}
                         placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
                         {fnameError}
                     </Text>
                     <TextInput
@@ -213,7 +181,7 @@ const Signup = ({ navigation }) => {
                         value={lname}
                         style={formStyles.textInput}
                         placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
                         {lnameError}
                     </Text>
 
@@ -227,8 +195,11 @@ const Signup = ({ navigation }) => {
                         marginBottom: 0,
                         marginTop: 0,
                     }} > Gender </Text>
+                   
                     <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
-
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
+                        {genderError}
+                    </Text>
                     <>
                         <TouchableOpacity
                             style={{
@@ -265,33 +236,15 @@ const Signup = ({ navigation }) => {
                             }}
                         />
                     </>
+                    {/* <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
+                        {dobError}
+                    </Text> */}
                     {/* <Text style={formStyles.errorText} onPress={() => signup()}>
                         {dobError}
                     </Text>   */}
-                    {/* <TextInput
-                        onBlur={() => validateEmail()}
-                        placeholder='Email..'
-                        onChangeText={setEmail}
-                        value={email}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {emailError}
-                    </Text>
-                    <TextInput
-                        placeholder='Password..'
-                        onBlur={() => validatePassword()}
-                        onChangeText={setPassword}
-                        value={password}
-                        style={formStyles.textInput}
-                        secureTextEntry={true}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {passwordError}
-                    </Text> */}
 
-                    {/* <PrimaryButton text='NEXT' onPress={() => {navigation.navigate('Next Sign up')}} /> */}
-                    <PrimaryButton text='SIGN UP' onPress={() => signup(email, password, fname, lname)} />
+                    <PrimaryButton text='NEXT' onPress={() => {nextStep(fname,lname, gender, date.toJSON())}} />
+                    {/* <PrimaryButton text='SIGN UP' onPress={() => signup(email, password, fname, lname)} /> */}
                     <Text style={formStyles.smallText} onPress={() => login()}>
                         Have an account? Login
                     </Text>
