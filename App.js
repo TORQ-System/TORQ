@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import Signup from './src/screens/Signup';
-import Login from './src/screens/Login';
+
 import ViewRequest from './src/screens/ViewRequest';
-import database from './src/screens/database';
+import ViewSpesfic from './src/screens/ViewSpesfic';
+// import database from './src/screens/database';
 
 //import PrimaryButton from '../../src/screens/PrimaryButton';
 
@@ -22,7 +22,7 @@ const App = () => {
                 {/* <Stack.Screen name="Sign up" component={Signup} /> */}
                 {/* <Stack.Screen name="Login" component={Login} /> */}
               <Stack.Screen name="ViewRequest" component={ViewRequest} />
-              {/* <Stack.Screen name="database" component={database} /> */}
+              <Stack.Screen name="ViewSpesfic" component={ViewSpesfic} />
               {/* <Stack.Screen name="integ" component={integ} /> */}
 
             </Stack.Navigator>

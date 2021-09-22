@@ -7,10 +7,14 @@ import PrimaryButton from '../../src/screens/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import database from '@react-native-firebase/database';
 
+import ViewSpesfic from '../../src/screens/ViewSpesfic';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
 import openMap from 'react-native-open-maps';
 
 
 
+var a=false;
  const userList=[];
 
 
@@ -24,7 +28,8 @@ class ViewRequest extends  Component{
        this.subscriber=database()
        .ref('/domRequest')
        .on('value', snapshot => {
-          let userList=[];
+         // let userList=[];
+          a = snapshot.exists();
            snapshot.forEach(snap =>{
            //   const userList=[];
                userList.push(snap.val());
@@ -37,16 +42,16 @@ class ViewRequest extends  Component{
       
      
        this.setState({userList});
-       console.log('User data: ',userList);
+       console.log('User data: ',this.state);
      // this.setState({userList:userList});
-     
+   
      });
     }
 
 
 render (){
     return(
-      
+     
 
  <View style={styles1.container}>
         
@@ -55,7 +60,8 @@ render (){
         <ScrollView>
         
                 <View>
-        {this.state.userList.map((user,index) => 
+        {
+        this.state.userList.map((user,index) => 
         
         
         <View style={styles1.ListStyalee}>
@@ -66,6 +72,7 @@ render (){
              <TouchableOpacity
             style={styles1.buttonPrimary}
             // onPress={() => setShouldShow(!shouldShow)}
+            onPress={() => this.props.navigation.navigate('ViewSpesfic')}
             >
            
             <LinearGradient
@@ -74,7 +81,7 @@ render (){
                 useAngle={true}
                 angle={145}
                 angleCenter={{ x: 0.5, y: 0.5 }}>
-                <Text style={styles1.textDark}>view</Text>
+                {/* <Text style={styles1.textDark}>view</Text> */}
             </LinearGradient>
         </TouchableOpacity>
             </View>
@@ -114,7 +121,9 @@ render (){
    
     )}
     
-  
+    <View style={styles.container}>
+            { this.renderElement() }
+        </View>
              {/* <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/> */}
            
            </View>
@@ -122,7 +131,14 @@ render (){
        </ImageBackground>
        </View>
     );
-}}
+}
+renderElement(){
+  if( !this.state.userList.length||!a||this.state.userList==null)
+     return <Text style={styles1.textnull}>No Requests yet</Text>;
+  
+}
+
+}
 
 
 
@@ -133,8 +149,8 @@ const styles1 = StyleSheet.create({
       margin:15,
       marginLeft: 20,
       marginRight:20,
-     paddingRight:10,
-   
+   //  paddingRight:10,
+      paddingRight:0,
     backgroundColor:"white",
     borderRadius:25,
     shadowColor: "blue",
@@ -166,6 +182,18 @@ const styles1 = StyleSheet.create({
         lineHeight: 84,
         fontWeight: "bold",
         //textAlign: "center",
+       
+      },
+      textnull: {
+         marginLeft:15,
+        color: "gray",
+        fontSize: 30,
+        lineHeight: 84,
+        fontWeight: "bold",
+        textAlign: "center",
+      
+        marginTop:20,
+        padding:20
        
       },
       name:{
@@ -218,13 +246,19 @@ const styles1 = StyleSheet.create({
       borderRadius: 40,
   },
   buttonPrimary: {
-      marginTop: 10,
-      width: '19%',
-      height: 29,
+      // marginTop: 10,
+      // width: '24%',
+      // height: 29,
      
-      //marginHorizontal:2,
-      marginLeft:90
-    
+   
+      // marginLeft:'auto',
+      marginTop: 10,
+      width: '3%',
+      height: 39,
+     
+   
+      marginLeft:'auto'
+  
   },
   textDark: {
       fontSize: 18,

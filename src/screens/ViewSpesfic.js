@@ -6,8 +6,6 @@ import { styles } from "../../assets/theme/General";
 import PrimaryButton from '../../src/screens/PrimaryButton';
 import LinearGradient from 'react-native-linear-gradient';
 import database from '@react-native-firebase/database';
-import { elemIndices } from 'prelude-ls';
-import { element } from 'prop-types';
 import openMap from 'react-native-open-maps';
 import { data } from 'browserslist';
 import { createOpenLink } from 'react-native-open-maps';
@@ -17,7 +15,7 @@ import { createOpenLink } from 'react-native-open-maps';
 
 
  var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-class database1 extends  Component{
+class ViewSpesfic extends  Component{
   
    state ={ userList:[]}
     constructor(props){
@@ -53,67 +51,13 @@ render (){
  <View style={styles1.container}>
         
         <ImageBackground source={ require('../../assets/BACK.png') } resizeMode="cover" style={styles1.image}>
-        <Text  style={styles1.text}>Requests</Text>
+        <Text  style={styles1.text}>Shahad's Report</Text>
         <ScrollView>
         
                 <View>
-        {this.state.userList.map((user,index) => <View style={styles1.ListStyalee}>
-                <View style={styles1.locationbox}>
-           
-             <Text style={styles1.id} > {user.Fname} {user.Lname} | {user.Request_ID} </Text>
-             {/* <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/> */}
-             <TouchableOpacity
-            style={styles1.buttonPrimary}
-            // onPress={() => setShouldShow(!shouldShow)}
-            >
-           
-            <LinearGradient
-                colors={['#0588D0', '#4DBDC2']}
-                style={styles1.gradient}
-                useAngle={true}
-                angle={145}
-                angleCenter={{ x: 0.5, y: 0.5 }}>
-                <Text style={styles1.textDark}>view</Text>
-            </LinearGradient>
-        </TouchableOpacity>
-            </View>
-           
-            <View style={styles1.locationbox}>
-            <Image
-     style={{
-      marginHorizontal:3,
-     
-     height:19,
-     width:16
-   }}
-        source={require('../../assets/pinl.png')}
-      />
-      
-      {/* onPress={() =openMap({latitude:user.Latitude,longitude:user.Longitude}) */}
-      <TouchableOpacity   onPress={() =>Linking.openURL('https://maps.google.com/?q='+user.Latitude+','+user.Longitude)}  >
-      <Text style={styles1.name}>location</Text>
-     
-
-         </TouchableOpacity>
-      
-      <Text style={styles1.id1}>{user.Time}</Text>
-            </View>
-          
-            {/* {shouldShow ? (
-          <Image
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
-            }}
-            style={{ width: 250, height: 250 }}
-          />
-        ) : null} */}
-        </View>
-    
-    )}
+                <View style={styles1.ListStyalee}></View>
     
   
-             {/* <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/> */}
            
            </View>
         </ScrollView>
@@ -129,16 +73,16 @@ const styles1 = StyleSheet.create({
    ListStyalee: {
       padding:17,
       margin:15,
-      marginLeft: 20,
-      marginRight:20,
+      marginLeft: 25,
+      marginRight:25,
      paddingRight:10,
-   
+   height:500,
     backgroundColor:"white",
     borderRadius:25,
     shadowColor: "blue",
     shadowOffset: {
         width: 0,
-        height: 4,
+        height: 2,
     },
     shadowOpacity: 0.32,
     shadowRadius: 11,
@@ -158,9 +102,10 @@ const styles1 = StyleSheet.create({
       },
    
       text: {
-         marginLeft:15,
+         marginLeft:30,
+         marginTop:30,
         color: "white",
-        fontSize: 42,
+        fontSize: 30,
         lineHeight: 84,
         fontWeight: "bold",
         //textAlign: "center",
@@ -232,4 +177,4 @@ const styles1 = StyleSheet.create({
    }
     )
 
-    export default database1;
+    export default ViewSpesfic;
