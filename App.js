@@ -124,6 +124,46 @@ const SRCACenters = [
     name: "twaiq",
     latitude: 24.585265317480754,
     longitude: 46.547105141719804,
+  },
+  {
+    //munsiyah
+    latitude: 24.824786989529542,
+    longitude: 46.81655385515806,
+  },
+  {
+    //namar
+    latitude: 24.55211787741151,
+    longitude: 46.63131015472793,
+  },
+  {
+    //nadwah
+    latitude: 24.79054888623931,
+    longitude: 46.876853868227386,
+  },
+  {
+    //dar bida
+    latitude: 24.567103148393645,
+    longitude: 46.7685939682224,
+  },
+  {
+    //bayan
+    latitude: 24.88285664307162,
+    longitude: 46.85941051240605,
+  },
+  {
+    //Narjis
+    latitude: 24.839968700490484,
+    longitude: 46.67215439706382,
+  },
+  {
+    //salalm
+    latitude: 24.71603727390603,
+    longitude: 46.811516483566905,
+  },
+  {
+    //Qaser Alhukum
+    latitude: 24.62625068416492,
+    longitude: 46.70996480685846,
   }
 ];
 
