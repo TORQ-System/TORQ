@@ -17,6 +17,8 @@
     "@react-navigation/native-stack": "^6.1.0",
     "add": "^2.0.6",
     "expo-linear-gradient": "^9.2.0",
+    "geo-lib": "^0.3.2",
+    "geolib": "^3.3.1",
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-linear-gradient": "^2.5.6",
