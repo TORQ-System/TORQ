@@ -11,42 +11,58 @@ import { data } from 'browserslist';
 import { createOpenLink } from 'react-native-open-maps';
 
 
- const userList=[];
-
+ const userINFOList=[];
+let DOB="";
+let Fname=""
+let Lname=""
+let NID=""
 
  var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
 class ViewSpesfic extends  Component{
   
-   state ={ userList:[]}
+   state ={userINFOList:[]}
     constructor(props){
         super(props);
-        //this.state ={ userList:[]}
-       this.subscriber=database()
-       .ref('/domRequest')
-       .on('value', snapshot => {
-          let userList=[];
-           snapshot.forEach(snap =>{
-           //   const userList=[];
-               userList.push(snap.val());
-              console.log('User data: ', snapshot.val());
-     
-     
-       }
-      
-       );
-      
-     
-       this.setState({userList});
-       console.log('User data: ',userList);
-     // this.setState({userList:userList});
-     
-     });
+    
+   
+    //console.log("try", this.props.navigation.route.params.data)
     }
+    // read(){
+    //   const{data}=this.props.route.params
+  
+  
+    //   database().ref('/User').orderByChild('Email').equalTo(""+data).once('value', snapshot => { 
+    //      let userINFOList=[];
+    //       snapshot.forEach(snap =>{
+    //       //   const userList=[];
+    //           userINFOList.push(snap.val());
+    //        //  console.log('User data: ', snapshot.val());
+    //       // let try0=snap.val()
+    // //       DOB=try0.DOB
+         
+    // //  Fname=try0.Fname
+    // //  Lname=try0.Lname
+    // //  NID=try0.NID
+          
+    //   }
+     
+    //   );
+     
+    
+    //   this.setState({userINFOList});
+    //  // console.log('User data: ',DOB);
+    
+    // // this.setState({userList:userList});
+    
+    // });
+    // console.log('User data: ',userINFOList);
+    // }
 
 
 render (){
+  const{data}=this.props.route.params
     return(
-      
+     
 
  <View style={styles1.container}>
         
@@ -55,7 +71,10 @@ render (){
         <ScrollView>
         
                 <View>
-                <View style={styles1.ListStyalee}></View>
+                <View style={styles1.ListStyalee}><Text>{data} </Text><Text></Text></View>
+              
+                
+
     
   
            

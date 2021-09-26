@@ -23,7 +23,7 @@ const App = () => {
                 {/* <Stack.Screen name="Login" component={Login} /> */}
               <Stack.Screen name="ViewRequest" component={ViewRequest} />
               <Stack.Screen name="ViewSpesfic" component={ViewSpesfic} />
-              {/* <Stack.Screen name="integ" component={integ} /> */}
+          
 
             </Stack.Navigator>
         </NavigationContainer>
