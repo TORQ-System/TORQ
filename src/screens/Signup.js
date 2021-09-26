@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
-import LinearGradient from 'react-native-linear-gradient';
 import Toast from 'react-native-toast-message';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -12,7 +11,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import DatePicker from 'react-native-date-picker'
 
 const Signup = ({ navigation }) => {
-    
+
     //User table in database
     const newReference = database().ref('/User').push();
 
@@ -24,7 +23,7 @@ const Signup = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    
+
     // Gender
     const [gender, setGender] = useState();
     const [genderError, setGenderError] = useState('');
@@ -44,13 +43,13 @@ const Signup = ({ navigation }) => {
         const selectedOption = radioButtonsArray.find((e) => e.selected);
         setGender(selectedOption.value);
         setRadioButtons(radioButtonsArray);
-       
+
     }
-        // Testing Radio Button
-        // console.log(gender);
+    // Testing Radio Button
+    // console.log(gender);
 
     function DateSelected() {
-        return (<Text style={{color:'#52A4D5'}} > DOB : {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} </Text>);
+        return (<Text style={{ color: '#52A4D5' }} > DOB : {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} </Text>);
     }
 
     const validateFname = () => {
@@ -68,26 +67,33 @@ const Signup = ({ navigation }) => {
             setLnameError('');
     }
 
+    // I have changed the logic here slightly
     const validateDOB = () => {
-        TodaysDate = new Date();
-        if(date === TodaysDate){
+        var todaysDate = new Date(); // retrieve current date
+        todaysDate = todaysDate.toString().substring(0, 10); // fix the format
+        var userDate = date.toString().substring(0, 10);
+        // console.log(todaysDate);
+        // console.log(userDate);
+        if (userDate === todaysDate) {
             setDobError('Please select Date of Birth');
+            return false; // false means an error occured
         }
-        else{
+        else {
             setDobError('');
+            return true;
         }
     }
     const validateGender = () => {
-        if(typeof(gender) === 'undefined'){
+        if (typeof (gender) === 'undefined') {
             setGenderError('Please select your gender');
         }
-        else{
+        else {
             setGenderError('');
         }
     }
 
     const signup = (email, password, fname, lname) => {
-        if (email === '' || password === '' || fname === '' || lname === ''){
+        if (email === '' || password === '' || fname === '' || lname === '') {
             Toast.show({
                 type: 'error',
                 text1: 'Invalid Credentials',
@@ -132,11 +138,11 @@ const Signup = ({ navigation }) => {
     }
 
     const nextStep = (fname, lname, gender, date) => {
-        if (fname === '' || lname === '' || typeof(gender) === 'undefined'){
+        if (fname === '' || lname === '' || typeof (gender) === 'undefined' || !validateDOB()) {
             validateFname();
             validateLname();
             validateGender();
-            
+
             Toast.show({
                 type: 'error',
                 text1: 'Invalid Credentials',
@@ -145,7 +151,8 @@ const Signup = ({ navigation }) => {
             });
         }
         else {
-            navigation.navigate('Next Sign up', {Fname:fname,Lname:lname,Gender:gender,Dob:date});
+            // I have added the substring here 
+            navigation.navigate('Next Sign up', { Fname: fname, Lname: lname, Gender: gender, Dob: date.toString().substring(0, 10) });
         }
     }
 
@@ -171,7 +178,7 @@ const Signup = ({ navigation }) => {
                         value={fname}
                         style={formStyles.textInput}
                         placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
                         {fnameError}
                     </Text>
                     <TextInput
@@ -181,7 +188,7 @@ const Signup = ({ navigation }) => {
                         value={lname}
                         style={formStyles.textInput}
                         placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
                         {lnameError}
                     </Text>
 
@@ -195,9 +202,9 @@ const Signup = ({ navigation }) => {
                         marginBottom: 0,
                         marginTop: 0,
                     }} > Gender </Text>
-                   
+
                     <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
+                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
                         {genderError}
                     </Text>
                     <>
@@ -243,7 +250,7 @@ const Signup = ({ navigation }) => {
                         {dobError}
                     </Text>   */}
 
-                    <PrimaryButton text='NEXT' onPress={() => {nextStep(fname,lname, gender, date.toJSON())}} />
+                    <PrimaryButton text='NEXT' onPress={() => { nextStep(fname, lname, gender, date.toJSON()) }} />
                     {/* <PrimaryButton text='SIGN UP' onPress={() => signup(email, password, fname, lname)} /> */}
                     <Text style={formStyles.smallText} onPress={() => login()}>
                         Have an account? Login

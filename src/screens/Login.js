@@ -93,6 +93,7 @@ const Login = ({ navigation }) => {
                 style={formStyles.cardImage}>
                 <View style={formStyles.card}>
                     <TextInput
+                        autoCapitalize='none'
                         onBlur={() => validateEmail()}
                         placeholder='Email..'
                         onChangeText={setEmail}

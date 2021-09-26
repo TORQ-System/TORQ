@@ -7,63 +7,21 @@ import Login from './src/screens/Login';
 import nextSignup from './src/screens/nextSignup';
 import Loader from './src/screens/Loader';
 import Home from './src/screens/Home';
-import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
 
 
 const Stack = createNativeStackNavigator();
-
-const toastConfig = {
-    error: (props) => (
-        <ErrorToast
-            {...props}
-            text1Style={{
-                fontSize: 17,
-                color: '#F3F3F3'
-            }}
-            text2Style={{
-                fontSize: 15,
-                color: '#F3F3F3'
-            }}
-            contentContainerStyle={{
-                backgroundColor: '#333'
-            }}
-            leadingIconContainerStyle={{
-                backgroundColor: '#333'
-            }}
-            trailingIconContainerStyle={{
-                backgroundColor: '#333'
-            }}
-        />
-    ),
-    success: (props) => (
-        <SuccessToast
-            {...props}
-            text1Style={{
-                fontSize: 17,
-                color: '#F3F3F3'
-            }}
-            text2Style={{
-                fontSize: 15,
-                color: '#F3F3F3'
-            }}
-            contentContainerStyle={{
-                backgroundColor: '#333'
-            }}
-            leadingIconContainerStyle={{
-                backgroundColor: '#333'
-            }}
-            trailingIconContainerStyle={{
-                backgroundColor: '#333'
-            }}
-        />
-    ),
-}
 
 
 const App = () => {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
-
+    const roleAuth = (user) => {
+        let isUser = -1;
+        let emailDomain = user.substring(user.indexOf('@') + 1);
+        isUser = (emailDomain === 'srca.org.sa' ? 0 : 1);
+        return isUser;
+    }
     function onAuthStateChanged(user) {
         setUser(user);
         if (initializing) setInitializing(false);
@@ -86,7 +44,7 @@ const App = () => {
                     <Stack.Screen name="Sign up" component={Signup} />
                     <Stack.Screen name="Next Sign up" component={nextSignup} />
                 </Stack.Navigator>
-                <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+                <Toast ref={(ref) => Toast.setRef(ref)} />
             </NavigationContainer>
         );
     }
@@ -96,14 +54,14 @@ const App = () => {
             <Stack.Navigator screenOptions={{
                 headerShown: false,
             }}>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home">
+                    {(props) => <Home  {...props} email={user.email} isUser={roleAuth(user.email)} />}
+                </Stack.Screen>
             </Stack.Navigator>
-            <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
 
     );
 };
 
-
 export default App;
-
