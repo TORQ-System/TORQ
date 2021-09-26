@@ -233,8 +233,18 @@ render (){
   }</View>
  
                 <View style={styles1.locationbox}>
-                
-             <Text style={styles1.id} > {user.Fname} {user.Lname} | {user.Request_ID} </Text>
+                <Image
+     style={{
+      marginHorizontal:3,
+    // marginBottom:15,
+    marginTop:10,
+     height:20,
+     width:20
+   }}
+        source={require('../../assets/clockk.png')}
+      />
+                <Text style={styles1.id} >   {user.Time} , {user.Date} <Text style={styles1.id} >| {user.Request_ID}</Text> </Text>
+             {/* <Text style={styles1.id} > {user.Fname} {user.Lname} | {user.Request_ID} </Text> */}
              {/* <PrimaryButton text='View' onPress={() => setShouldShow(!shouldShow)}/> */}
              <TouchableOpacity
             style={styles1.buttonPrimary}
@@ -256,7 +266,7 @@ render (){
             <View style={styles1.locationbox}>
             <Image
      style={{
-      marginHorizontal:3,
+      marginHorizontal:2,
      
      height:19,
      width:16
@@ -271,7 +281,7 @@ render (){
 
          </TouchableOpacity>
       
-      <Text style={styles1.id1}>{user.Time}</Text>
+      {/* <Text style={styles1.id1}>{user.Time}</Text> */}
             </View>
           
             {/* {shouldShow ? (
@@ -385,7 +395,7 @@ const styles1 = StyleSheet.create({
        
       },
       name:{
-      
+      marginHorizontal:10,
           color:"#50A9DB"
          , fontSize: 17,
          fontWeight:"bold",
@@ -393,6 +403,15 @@ const styles1 = StyleSheet.create({
        
        // textAlign: "center",
       },
+      name1:{
+      marginTop:6,
+        color:"#50A9DB"
+       , fontSize: 17,
+       fontWeight:"bold",
+      // textDecorationLine: 'underline',
+     
+     // textAlign: "center",
+    },
       id:{
         color:"#656262"
        , fontSize:17,
@@ -434,15 +453,15 @@ const styles1 = StyleSheet.create({
       borderRadius: 40,
   },
   buttonPrimary: {
-      marginTop: 10,
-      width: '24%',
-      height: 29,
+      // marginTop: 10,
+      // width: '24%',
+      // height: 29,
      
    
-      marginLeft:'auto',
-      // marginTop: 10,
-      // width: '3%',
-      // height: 39,
+      // marginLeft:'auto',
+      marginTop: 10,
+      width: '3%',
+      height: 39,
      
    
       marginLeft:'auto'
