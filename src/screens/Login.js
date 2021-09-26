@@ -89,6 +89,7 @@ const Login = ({ navigation }) => {
                     <View style={formStyles.form}>
                         <View style={formStyles.inputs}>
                             <TextInput
+                                autoCapitalize='none'
                                 onTextInput={() => validateEmail()}
                                 placeholder='Email..'
                                 onChangeText={setEmail}
