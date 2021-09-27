@@ -26,11 +26,11 @@ const style = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 40,
+        borderRadius: 19,
     },
     buttonPrimary: {
         marginTop: 20,
-        width: '45%',
+        width: '60%',
         height: 45,
     },
     textDark: {

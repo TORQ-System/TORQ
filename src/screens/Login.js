@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
-import { View, Text, TextInput, ImageBackground } from "react-native";
+import { View, Text, TextInput, ImageBackground, ScrollView, Image } from "react-native";
 import auth from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import Title from '../components/Title';
@@ -43,14 +43,8 @@ const Login = ({ navigation }) => {
             auth()
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    Toast.show({
-                        type: 'success',
-                        text1: 'Welcom Back!',
-                        text2: 'We\'ve missed you ✌',
-                        position: 'top',
-                    });
-                })
-                .catch(error => {
+
+                }).catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
                         Toast.show({
                             type: 'error',
@@ -84,45 +78,50 @@ const Login = ({ navigation }) => {
     }
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/background.png')}
-            style={styles.imageBackground}>
-            <Title titleName='Welcome Back' />
+        <ScrollView>
             <ImageBackground
-                source={require('../../assets/images/Rectangle53.png')}
-                style={formStyles.cardImage}>
-                <View style={formStyles.card}>
-                    <TextInput
-                        autoCapitalize='none'
-                        onBlur={() => validateEmail()}
-                        placeholder='Email..'
-                        onChangeText={setEmail}
-                        value={email}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {emailError}
-                    </Text>
-                    <TextInput
-                        placeholder='Password..'
-                        onBlur={() => validatePassword()}
-                        onChangeText={setPassword}
-                        value={password}
-                        style={formStyles.textInput}
-                        secureTextEntry={true}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {passwordError}
-                    </Text>
-                    <PrimaryButton text='Login' onPress={() => { login(email, password) }} />
-                    <Text style={formStyles.smallText} onPress={() => signup()}>
-                        Don't have an account? Sign up
-                    </Text>
-                </View>
+                source={require('../../assets/images/background.png')}
+                style={styles.imageBackground}>
+                <Title titleName='Welcome Back' />
+                <ImageBackground
+                    source={require('../../assets/images/backgroundCard.png')}
+                    style={formStyles.cardImage}>
+                    <View style={formStyles.form}>
+                        <View style={formStyles.inputs}>
+                            <TextInput
+                                autoCapitalize='none'
+                                onTextInput={() => validateEmail()}
+                                placeholder='Email..'
+                                onChangeText={setEmail}
+                                value={email}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup()}>
+                                {emailError}
+                            </Text>
+                            <TextInput
+                                placeholder='Password..'
+                                onTextInput={() => validatePassword()}
+                                onChangeText={setPassword}
+                                value={password}
+                                style={formStyles.textInput}
+                                secureTextEntry={true}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup()}>
+                                {passwordError}
+                            </Text>
+                        </View>
+                        <View style={formStyles.actions}>
+                            <PrimaryButton text='Login' onPress={() => { login(email, password) }} />
+                            <Text style={formStyles.smallText} onPress={() => signup()}>
+                                Don't have an account? Sign up
+                            </Text>
+                        </View>
+                    </View>
+                </ImageBackground>
             </ImageBackground>
-        </ImageBackground>
+        </ScrollView>
     );
-
 };
 
 export default Login;

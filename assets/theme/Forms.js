@@ -1,10 +1,6 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-    textDark: {
-        fontSize: 18,
-        color: '#FFF',
-    },
     textLight: {
         fontSize: 18,
         color: '#FFF',
@@ -15,8 +11,7 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: '#6FB6DF',
         padding: 5,
-        color: '#50A9DB',
-        marginBottom: 16,
+        color: '#50A9DB'
     },
     smallText: {
         fontWeight: 'bold',
@@ -27,35 +22,31 @@ export const styles = StyleSheet.create({
     errorText: {
         color: 'red',
         alignSelf: 'flex-start',
-        marginTop: 0,
-        marginBottom: 0,
+        marginTop: 5,
+        marginBottom: 5,
         padding: 0,
         marginLeft: 40,
         fontSize: 12,
     },
-    card: {
-        marginTop: '25%',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: 50,
-    },
     cardImage: {
-        height: Dimensions.get('window').width * 1.48 , // applied to Image
+        height: Dimensions.get('window').width * (4 / 3), // applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
-        marginTop: 60,
         justifyContent: 'center',
-        
-    },
 
-    SelectDropdown: {
-        backgroundColor: '#EDEDED',
-        borderBottomColor: '#6FB6DF',
-        width: 50,
     },
-    dropdownTextStyle: {
-        color: "#50A9DB",
+    form: {
+        flex: 1,
+        justifyContent: 'center',
     },
-    
+    inputs: {
+        paddingTop: 40,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    actions: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    }
 }
 );
