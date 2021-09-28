@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { styles } from "../../assets/theme/General";
 import { styles as formStyles } from "../../assets/theme/Forms";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, ScrollView } from "react-native";
 import Toast from 'react-native-toast-message';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -163,102 +163,94 @@ const Signup = ({ navigation }) => {
     }
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/background.png')}
-            style={styles.imageBackground}>
-            <Title titleName='Join Us' />
+        <ScrollView>
             <ImageBackground
-                source={require('../../assets/images/Rectangle53.png')}
-                style={formStyles.cardImage}>
-                <View style={formStyles.card}>
-                    <TextInput
-                        onBlur={() => validateFname()}
-                        placeholder='First Name..'
-                        onChangeText={setFname}
-                        value={fname}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
-                        {fnameError}
-                    </Text>
-                    <TextInput
-                        onBlur={() => validateLname()}
-                        placeholder='Last Name..'
-                        onChangeText={setLname}
-                        value={lname}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
-                        {lnameError}
-                    </Text>
-
-                    <Text style={{
-                        fontSize: 16,
-                        width: '80%',
-                        borderBottomWidth: 2,
-                        borderColor: '#6FB6DF',
-                        padding: 0,
-                        color: '#50A9DB',
-                        marginBottom: 0,
-                        marginTop: 0,
-                    }} > Gender </Text>
-
-                    <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
-                    <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
-                        {genderError}
-                    </Text>
-                    <>
-                        <TouchableOpacity
-                            style={{
+                source={require('../../assets/images/background.png')}
+                style={styles.imageBackground}>
+                <Title titleName='Welcome Back' />
+                <ImageBackground
+                    source={require('../../assets/images/backgroundCard.png')}
+                    style={formStyles.cardImage}>
+                    <View style={formStyles.signupForm}>
+                        <View style={formStyles.inputs}>
+                            <TextInput
+                                onBlur={() => validateFname()}
+                                placeholder='First Name..'
+                                onChangeText={setFname}
+                                value={fname}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
+                                {fnameError}
+                            </Text>
+                            <TextInput
+                                onBlur={() => validateLname()}
+                                placeholder='Last Name..'
+                                onChangeText={setLname}
+                                value={lname}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
+                                {lnameError}
+                            </Text>
+                            {/* <Text style={{
                                 fontSize: 16,
                                 width: '80%',
                                 borderBottomWidth: 2,
                                 borderColor: '#6FB6DF',
-                                padding: 5,
+                                padding: 0,
                                 color: '#50A9DB',
-                                marginBottom: 16,
-                                marginTop: 16,
-                            }}
-                            onPress={() => setOpen(true)}
-                        >
-                            <Text style={{ color: '#50A9DB', fontSize: 16 }} >Select Date of birth</Text>
-                        </TouchableOpacity>
+                                marginBottom: 0,
+                                marginTop: 0,
+                            }} > Gender </Text> */}
+                            <Text style={{ color: '#50A9DB', fontSize: 16, alignSelf: 'flex-start', marginLeft: 40 }} >Gender</Text>
+                            <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
+                            <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>{genderError} </Text>
 
-                        {/* {Date Picker from https://github.com/henninghall/react-native-date-picker#:~:text=Fork%20161-,React%20Native%20Date%20Picker%20is%20datetime%20picker%20for%20Android%20and,possible%20look,%20feel%20and%20performance. */}
-                        <Text>  {DateSelected()} </Text>
-                        <DatePicker
-                            modal
-                            open={open}
-                            date={date}
-                            mode='date'
-                            title='Select Date of Birth'
-                            minimumDate={new Date("1900-12-31")}
-                            maximumDate={new Date()}
-                            onConfirm={(date) => {
-                                setOpen(false)
-                                setDate(date)
-                            }}
-                            onCancel={() => {
-                                setOpen(false)
-                            }}
-                        />
-                    </>
-                    {/* <Text style={formStyles.errorText} onPress={() => nextStep(fname,lname, gender, date)}>
-                        {dobError}
-                    </Text> */}
-                    {/* <Text style={formStyles.errorText} onPress={() => signup()}>
-                        {dobError}
-                    </Text>   */}
+                            <TouchableOpacity
+                                style={{
+                                    fontSize: 16,
+                                    width: '80%',
+                                    borderBottomWidth: 2,
+                                    borderColor: '#6FB6DF',
+                                    padding: 5,
+                                    color: '#50A9DB',
+                                    marginBottom: 16,
+                                }}
+                                onPress={() => setOpen(true)} >
+                                <Text style={{ color: '#50A9DB', fontSize: 16 }} >Select Date of birth</Text>
+                            </TouchableOpacity>
 
-                    <PrimaryButton text='NEXT' onPress={() => { nextStep(fname, lname, gender, date.toJSON()) }} />
-                    {/* <PrimaryButton text='SIGN UP' onPress={() => signup(email, password, fname, lname)} /> */}
-                    <Text style={formStyles.smallText} onPress={() => login()}>
-                        Have an account? Login
-                    </Text>
-
-                </View>
+                            {/* {Date Picker from https://github.com/henninghall/react-native-date-picker#:~:text=Fork%20161-,React%20Native%20Date%20Picker%20is%20datetime%20picker%20for%20Android%20and,possible%20look,%20feel%20and%20performance. */}
+                            <Text>  {DateSelected()} </Text>
+                            <DatePicker
+                                modal={true}
+                                androidVariant='nativeAndroid'
+                                open={open}
+                                date={date}
+                                mode='date'
+                                title='Select Date of Birth'
+                                minimumDate={new Date("1900-12-31")}
+                                maximumDate={new Date()}
+                                onConfirm={(date) => {
+                                    setOpen(false)
+                                    setDate(date)
+                                }}
+                                onCancel={() => {
+                                    setOpen(false)
+                                }}
+                            />
+                        </View>
+                        <View style={formStyles.actions}>
+                            <PrimaryButton text='NEXT' onPress={() => { nextStep(fname, lname, gender, date.toJSON()) }} />
+                            <Text style={formStyles.smallText} onPress={() => login()}>
+                                Have an account? Login
+                            </Text>
+                        </View>
+                    </View>
+                </ImageBackground>
             </ImageBackground>
-        </ImageBackground>
+        </ScrollView>
     );
 };
 

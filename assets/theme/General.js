@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     },
     imageBackground: {
         flex: 1,
+        justifyContent: 'flex-end',
         backgroundColor: '#0000',
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,

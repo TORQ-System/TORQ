@@ -29,15 +29,20 @@ export const styles = StyleSheet.create({
         fontSize: 12,
     },
     cardImage: {
-        height: Dimensions.get('window').width * (4 / 3), // applied to Image
+        height: Dimensions.get('window').height * (0.65),// applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
+        alignSelf: 'flex-end',
         justifyContent: 'center',
 
     },
     form: {
         flex: 1,
         justifyContent: 'center',
+    },
+    signupForm: {
+        flex: 1,
+        justifyContent: 'flex-end',
     },
     inputs: {
         paddingTop: 40,
