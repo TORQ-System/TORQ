@@ -12,17 +12,12 @@ import DatePicker from 'react-native-date-picker'
 
 const Signup = ({ navigation }) => {
 
-    //User table in database
-    const newReference = database().ref('/User').push();
 
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [fnameError, setFnameError] = useState('');
     const [lnameError, setLnameError] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+   
 
     // Gender
     const [gender, setGender] = useState();
@@ -53,15 +48,25 @@ const Signup = ({ navigation }) => {
     }
 
     const validateFname = () => {
-        // not less than 2 characters for both fname & lname
-        if (fname.length < 2)
+        // not less than 2 characters and cannot contain spaces or numbers
+        let nameFormat = /^[a-zA-Z]+$/;
+    
+        if (nameFormat.test(fname)===false){
+            setFnameError('Name cannot contain numbers or spaces')
+        }
+        else if (fname.length < 2)
             setFnameError('First Name cannot be less than 2 characters');
         else
             setFnameError('');
     }
     const validateLname = () => {
-        // not less than 2 characters for both fname & lname
-        if (lname.length < 2)
+        // not less than 2 characters and cannot contain spaces or numbers
+        let nameFormat = /^[a-zA-Z]+$/;
+    
+        if (nameFormat.test(lname)===false){
+            setLnameError('Name cannot contain numbers or spaces')
+        }
+        else if (lname.length < 2)
             setLnameError('Last Name cannot be less than 2 characters');
         else
             setLnameError('');
@@ -92,50 +97,6 @@ const Signup = ({ navigation }) => {
         }
     }
 
-    const signup = (email, password, fname, lname) => {
-        if (email === '' || password === '' || fname === '' || lname === '') {
-            Toast.show({
-                type: 'error',
-                text1: 'Invalid Credentials',
-                text2: 'Fields cannot be empty',
-                position: 'top',
-            });
-        }
-        // If the user entered an email we will chcek whether its domain is of the SRCA
-        else if (email != '') {
-            let emailDomain = email.substring(email.indexOf('@') + 1); // extracting the domain
-            // if the domain is the SRCA we will display a toast and NOT sign them up
-            if (emailDomain === 'srca.org.sa') {
-                Toast.show({
-                    type: 'error',
-                    text1: 'Incorrect Email',
-                    text2: 'Email domain is restricted',
-                    position: 'top',
-                });
-            }
-            // This step should be in the next page
-            else {
-                auth()
-                    .createUserWithEmailAndPassword(email, password)
-                    .then(() => {
-                        newReference.set({ Fname: fname, Lname: lname, Email: email, Password: password, }).then(() => console.log('Data updated.'));
-                        alert('success');
-                    })
-                    .catch(error => {
-
-                        if (error.code === 'auth/email-already-in-use') {
-                            alert('That email address is already in use!');
-                        }
-
-                        if (error.code === 'auth/invalid-email') {
-                            alert('That email address is invalid!');
-                        }
-                        console.error(error);
-
-                    });
-            }
-        }
-    }
 
     const nextStep = (fname, lname, gender, date) => {
         if (fname === '' || lname === '' || typeof (gender) === 'undefined' || !validateDOB()) {
@@ -167,7 +128,7 @@ const Signup = ({ navigation }) => {
             <ImageBackground
                 source={require('../../assets/images/background.png')}
                 style={styles.imageBackground}>
-                <Title titleName='Welcome Back' />
+                <Title titleName='Join Us' />
                 <ImageBackground
                     source={require('../../assets/images/backgroundCard.png')}
                     style={formStyles.cardImage}>
@@ -193,16 +154,7 @@ const Signup = ({ navigation }) => {
                             <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
                                 {lnameError}
                             </Text>
-                            {/* <Text style={{
-                                fontSize: 16,
-                                width: '80%',
-                                borderBottomWidth: 2,
-                                borderColor: '#6FB6DF',
-                                padding: 0,
-                                color: '#50A9DB',
-                                marginBottom: 0,
-                                marginTop: 0,
-                            }} > Gender </Text> */}
+                        
                             <Text style={{ color: '#50A9DB', fontSize: 16, alignSelf: 'flex-start', marginLeft: 40 }} >Gender</Text>
                             <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
                             <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>{genderError} </Text>

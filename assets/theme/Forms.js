@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, Platform } from 'react-native';
 
 export const styles = StyleSheet.create({
     textLight: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         fontSize: 12,
     },
     cardImage: {
-        height: Dimensions.get('window').height * (0.65),// applied to Image
+        height: Platform.OS === 'android'? Dimensions.get('window').height * (0.65): Dimensions.get('window').height * (0.69),// applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
         alignSelf: 'flex-end',
@@ -42,7 +42,8 @@ export const styles = StyleSheet.create({
     },
     signupForm: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: Platform.OS==='android'? 'flex-end':'flex-start',
+        marginTop: Platform.OS ==='android'? 0: 115,
     },
     inputs: {
         paddingTop: 40,

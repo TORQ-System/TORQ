@@ -138,15 +138,17 @@ const nextSignup = ({ route, navigation }) => {
     }
 
     return (
+        <ScrollView>
         <ImageBackground
             source={require('../../assets/images/background.png')}
             style={styles.imageBackground}>
             <Title titleName='Join Us' />
             <ImageBackground
-                source={require('../../assets/images/Rectangle53.png')}
+                source={require('../../assets/images/backgroundCard.png')}
                 style={formStyles.cardImage}
             >
-                <View style={formStyles.card}>
+            <View style={formStyles.signupForm}>
+                <View style={formStyles.inputs}>
 
                     <TextInput
                         onBlur={() => validatePhone()}
@@ -194,15 +196,20 @@ const nextSignup = ({ route, navigation }) => {
                     <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
                         {passwordError}
                     </Text>
-                    {/* <PrimaryButton text='NEXT' /> */}
+                 </View>
+                    
+                    
+                    <View style={formStyles.actions}>
                     <PrimaryButton text='SIGN UP' onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)} />
                     <Text style={formStyles.smallText} onPress={() => login()}>
                         Have an account? Login
                     </Text>
-
-                </View>
+                    </View>
+                
+            </View>
             </ImageBackground>
         </ImageBackground>
+        </ScrollView>
     );
 };
 

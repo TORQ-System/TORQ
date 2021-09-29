@@ -148,7 +148,6 @@
 				C5EEFEFCF9BDB8E922534DAB /* Pods-TORQ-TORQTests.debug.xcconfig */,
 				00BC72B7030570AC5D9137AF /* Pods-TORQ-TORQTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -503,6 +502,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KLG5737U6K;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TORQ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -529,6 +529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KLG5737U6K;
 				INFOPLIST_FILE = TORQ/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
