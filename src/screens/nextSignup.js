@@ -53,10 +53,14 @@ const nextSignup = ({ route, navigation }) => {
     const validatePassword = () => {
         if (password == '')
             setPasswordError('password cannot be empty');
-        else if (password.length < 6)
+        else if (password.length < 6) {
             setPasswordError('password cannot be less than 6 charachters');
+            return false;
+        }
         else
             setPasswordError('');
+        return true;
+
     }
 
     const validatePhone = () => {
@@ -67,9 +71,11 @@ const nextSignup = ({ route, navigation }) => {
         //starts with 05
         else if (phoneFormat.test(phone) === false || phone.length !== 10) {
             setPhoneError('Invalid Phone Number');
+            return false;
         }
         else {
             setPhoneError('');
+            return true;
         }
 
     }
@@ -79,9 +85,11 @@ const nextSignup = ({ route, navigation }) => {
         }
         else if (nationalID.length !== 10) {
             setNationalIDError('Invalid National ID');
+            return false;
         }
         else {
             setNationalIDError('');
+            return true;
         }
     }
 
@@ -90,7 +98,7 @@ const nextSignup = ({ route, navigation }) => {
         navigation.navigate('Login');
     }
     const signup = (Fname, Lname, Gender, Dob, phone, nationalID, email, password) => {
-        if (phone === '' || nationalID === '' || email === '' || password === '') {
+        if (phone === '' || nationalID === '' || email === '' || password === '' || !validatePhone() || !validatePassword() || !validateNationalID()) {
             validatePhone();
             validateNationalID();
             validateEmail();
@@ -120,18 +128,32 @@ const nextSignup = ({ route, navigation }) => {
                     .createUserWithEmailAndPassword(email, password)
                     .then(() => {
                         DBReference.set({ Fname: Fname, Lname: Lname, Gender: Gender, DOB: Dob, Phone: phone, NID: nationalID, Email: email, Password: password, }).then(() => console.log('Data updated.'));
-                        alert('success');
                     })
                     .catch(error => {
-
                         if (error.code === 'auth/email-already-in-use') {
-                            alert('That email address is already in use!');
+                            Toast.show({
+                                type: 'error',
+                                text1: 'Email',
+                                text2: 'Email already in use',
+                                position: 'top',
+                            });
                         }
-
                         if (error.code === 'auth/invalid-email') {
-                            alert('That email address is invalid!');
+                            Toast.show({
+                                type: 'error',
+                                text1: 'Invalid Email',
+                                text2: 'The email you entered is not valid',
+                                position: 'top',
+                            });
                         }
-
+                        else {
+                            Toast.show({
+                                type: 'error',
+                                text1: 'Invalid Credentials',
+                                text2: 'Incorrect email or password',
+                                position: 'top',
+                            });
+                        }
                     });
             }
         }
@@ -139,76 +161,75 @@ const nextSignup = ({ route, navigation }) => {
 
     return (
         <ScrollView>
-        <ImageBackground
-            source={require('../../assets/images/background.png')}
-            style={styles.imageBackground}>
-            <Title titleName='Join Us' />
             <ImageBackground
-                source={require('../../assets/images/backgroundCard.png')}
-                style={formStyles.cardImage}
-            >
-            <View style={formStyles.signupForm}>
-                <View style={formStyles.inputs}>
+                source={require('../../assets/images/background.png')}
+                style={styles.imageBackground}>
+                <Title titleName='Join Us' />
+                <ImageBackground
+                    source={require('../../assets/images/backgroundCard.png')}
+                    style={formStyles.cardImage}>
+                    <View style={formStyles.signupForm}>
+                        <View style={formStyles.inputs}>
 
-                    <TextInput
-                        onBlur={() => validatePhone()}
-                        placeholder='Phone Number'
-                        onChangeText={setPhone}
-                        value={phone}
-                        keyboardType='number-pad'
-                        maxLength={10}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
-                        {phoneError}
-                    </Text>
-                    <TextInput
-                        onBlur={() => validateNationalID()}
-                        placeholder='National ID'
-                        onChangeText={setNationalID}
-                        value={nationalID}
-                        keyboardType='number-pad'
-                        maxLength={10}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
-                        {nationalIDError}
-                    </Text>
-                    <TextInput
-                        autoCapitalize='none'
-                        onBlur={() => validateEmail()}
-                        placeholder='Email..'
-                        onChangeText={setEmail}
-                        value={email}
-                        style={formStyles.textInput}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
-                        {emailError}
-                    </Text>
-                    <TextInput
-                        placeholder='Password..'
-                        onBlur={() => validatePassword()}
-                        onChangeText={setPassword}
-                        value={password}
-                        style={formStyles.textInput}
-                        secureTextEntry={true}
-                        placeholderTextColor='#50A9DB' />
-                    <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
-                        {passwordError}
-                    </Text>
-                 </View>
-                    
-                    
-                    <View style={formStyles.actions}>
-                    <PrimaryButton text='SIGN UP' onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)} />
-                    <Text style={formStyles.smallText} onPress={() => login()}>
-                        Have an account? Login
-                    </Text>
+                            <TextInput
+                                onBlur={() => validatePhone()}
+                                placeholder='Phone Number'
+                                onChangeText={setPhone}
+                                value={phone}
+                                keyboardType='number-pad'
+                                maxLength={10}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
+                                {phoneError}
+                            </Text>
+                            <TextInput
+                                onBlur={() => validateNationalID()}
+                                placeholder='National ID'
+                                onChangeText={setNationalID}
+                                value={nationalID}
+                                keyboardType='number-pad'
+                                maxLength={10}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
+                                {nationalIDError}
+                            </Text>
+                            <TextInput
+                                autoCapitalize='none'
+                                onBlur={() => validateEmail()}
+                                placeholder='Email..'
+                                onChangeText={setEmail}
+                                value={email}
+                                style={formStyles.textInput}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
+                                {emailError}
+                            </Text>
+                            <TextInput
+                                placeholder='Password..'
+                                onBlur={() => validatePassword()}
+                                onChangeText={setPassword}
+                                value={password}
+                                style={formStyles.textInput}
+                                secureTextEntry={true}
+                                placeholderTextColor='#50A9DB' />
+                            <Text style={formStyles.errorText} onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)}>
+                                {passwordError}
+                            </Text>
+                        </View>
+
+
+                        <View style={formStyles.actions}>
+                            <PrimaryButton text='SIGN UP' onPress={() => signup(Fname, Lname, Gender, Dob, phone, nationalID, email, password)} />
+                            <Text style={formStyles.smallText} onPress={() => login()}>
+                                Have an account? Login
+                            </Text>
+                        </View>
+
                     </View>
-                
-            </View>
+                </ImageBackground>
             </ImageBackground>
-        </ImageBackground>
         </ScrollView>
     );
 };

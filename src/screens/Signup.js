@@ -17,7 +17,7 @@ const Signup = ({ navigation }) => {
     const [lname, setLname] = useState('');
     const [fnameError, setFnameError] = useState('');
     const [lnameError, setLnameError] = useState('');
-   
+
 
     // Gender
     const [gender, setGender] = useState();
@@ -50,26 +50,35 @@ const Signup = ({ navigation }) => {
     const validateFname = () => {
         // not less than 2 characters and cannot contain spaces or numbers
         let nameFormat = /^[a-zA-Z]+$/;
-    
-        if (nameFormat.test(fname)===false){
-            setFnameError('Name cannot contain numbers or spaces')
+
+        if (nameFormat.test(fname) === false) {
+            setFnameError('Name cannot contain numbers or spaces');
+            return false;
         }
-        else if (fname.length < 2)
+        else if (fname.length < 2) {
             setFnameError('First Name cannot be less than 2 characters');
-        else
+            return false;
+        }
+        else {
             setFnameError('');
+            return true;
+        }
     }
     const validateLname = () => {
         // not less than 2 characters and cannot contain spaces or numbers
         let nameFormat = /^[a-zA-Z]+$/;
-    
-        if (nameFormat.test(lname)===false){
+
+        if (nameFormat.test(lname) === false) {
             setLnameError('Name cannot contain numbers or spaces')
         }
-        else if (lname.length < 2)
+        else if (lname.length < 2) {
             setLnameError('Last Name cannot be less than 2 characters');
-        else
+            return false;
+        }
+        else {
             setLnameError('');
+            return true;
+        }
     }
 
     // I have changed the logic here slightly
@@ -96,10 +105,8 @@ const Signup = ({ navigation }) => {
             setGenderError('');
         }
     }
-
-
     const nextStep = (fname, lname, gender, date) => {
-        if (fname === '' || lname === '' || typeof (gender) === 'undefined' || !validateDOB()) {
+        if (fname === '' || lname === '' || typeof (gender) === 'undefined' || !validateDOB() || !validateFname() || !validateLname()) {
             validateFname();
             validateLname();
             validateGender();
@@ -154,7 +161,7 @@ const Signup = ({ navigation }) => {
                             <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>
                                 {lnameError}
                             </Text>
-                        
+
                             <Text style={{ color: '#50A9DB', fontSize: 16, alignSelf: 'flex-start', marginLeft: 40 }} >Gender</Text>
                             <RadioGroup layout={'row'} radioButtons={radioButtons} onPress={onPressRadioButton} />
                             <Text style={formStyles.errorText} onPress={() => nextStep(fname, lname, gender, date)}>{genderError} </Text>

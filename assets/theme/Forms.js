@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         fontSize: 12,
     },
     cardImage: {
-        height: Platform.OS === 'android'? Dimensions.get('window').height * (0.65): Dimensions.get('window').height * (0.69),// applied to Image
+        height: Platform.OS === 'android' ? Dimensions.get('window').height * (0.75) : Dimensions.get('window').height * (0.69),// applied to Image
         width: Dimensions.get('window').width,
         flex: 1,
         alignSelf: 'flex-end',
@@ -37,13 +37,14 @@ export const styles = StyleSheet.create({
 
     },
     form: {
+        marginTop: 25,
         flex: 1,
         justifyContent: 'center',
     },
     signupForm: {
         flex: 1,
-        justifyContent: Platform.OS==='android'? 'flex-end':'flex-start',
-        marginTop: Platform.OS ==='android'? 0: 115,
+        justifyContent: Platform.OS === 'android' ? 'center' : 'flex-start',
+        marginTop: Platform.OS === 'android' ? 80 : 115,
     },
     inputs: {
         paddingTop: 40,
